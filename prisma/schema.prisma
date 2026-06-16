@@ -22,6 +22,7 @@ model User {
   updatedAt DateTime @updatedAt
 
   bookings Booking[]
+  notificationLogs NotificationLog[]
 }
 
 model Armada {
@@ -82,6 +83,7 @@ model Booking {
   user    User     @relation(fields: [userId], references: [id])
   jadwal  Jadwal   @relation(fields: [jadwalId], references: [id])
   payment Payment?
+  notificationLogs NotificationLog[]
 }
 
 model Payment {
