@@ -40,7 +40,7 @@ async function notifyBookingStatus(
       jamBerangkat: jadwal.jamBerangkat,
       jumlahKursi: booking.jumlahKursi,
       totalHarga: booking.totalHarga,
-      alamatJemput: alamatJemput,
+      alamatJemput: alamatJemput || "-",
       status: booking.status,
       bookingUrl,
     });
