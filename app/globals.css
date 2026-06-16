@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f5f3f0;
+  --foreground: #1a1a1a;
 }
 
 @theme inline {
@@ -12,15 +12,65 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Hero floating animations */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes float-mid {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes float-reverse {
+  0%, 100% { transform: translateY(-6px); }
+  50% { transform: translateY(6px); }
+}
+
+@keyframes float-circle-1 {
+  0%, 100% { transform: translateY(0px); opacity: 0.85; }
+  50% { transform: translateY(-6px); opacity: 1; }
+}
+
+@keyframes float-circle-2 {
+  0%, 100% { transform: translateY(0px); opacity: 0.9; }
+  50% { transform: translateY(-4px); opacity: 1; }
+}
+
+@keyframes float-circle-3 {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.05); opacity: 1; }
+}
+
+.animate-float-slow {
+  animation: float-slow 3s ease-in-out infinite;
+}
+
+.animate-float-mid {
+  animation: float-mid 2.5s ease-in-out infinite;
+}
+
+.animate-float-reverse {
+  animation: float-reverse 3.5s ease-in-out infinite;
+}
+
+.animate-float-circle-1 {
+  animation: float-circle-1 4s ease-in-out infinite;
+}
+
+.animate-float-circle-2 {
+  animation: float-circle-2 3.5s ease-in-out infinite;
+  animation-delay: 0.5s;
+}
+
+.animate-float-circle-3 {
+  animation: float-circle-3 3s ease-in-out infinite;
+  animation-delay: 1s;
 }
