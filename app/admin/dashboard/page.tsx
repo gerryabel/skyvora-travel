@@ -17,6 +17,8 @@ import {
 } from "lucide-react";
 import PendapatanChart from "./pendapatan-chart";
 
+export const dynamic = "force-dynamic";
+
 function formatRupiah(n: number) {
   return "Rp " + n.toLocaleString("id-ID");
 }
