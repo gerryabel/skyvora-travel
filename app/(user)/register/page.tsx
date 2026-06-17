@@ -64,7 +64,7 @@ export default function RegisterPage() {
           {/* Header */}
           <div className="text-center mb-8">
             <h1 className="text-2xl font-bold mb-2" style={{ color: "#1a1a1a" }}>
-              Daftar <span className="text-blue-600">Skyvora</span> Travel
+              Daftar <span className="text-primary">Skyvora</span> Travel
             </h1>
             <p className="text-sm" style={{ color: "#6b6b6b" }}>
               Buat akun baru untuk mulai memesan
@@ -101,7 +101,7 @@ export default function RegisterPage() {
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Nama lengkap"
                   required
-                  className="w-full pl-10 pr-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary"
                   style={{ background: "#f5f3f0", border: "1px solid #e0dcd7", color: "#1a1a1a" }}
                 />
               </div>
@@ -119,7 +119,7 @@ export default function RegisterPage() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="nama@email.com"
                   required
-                  className="w-full pl-10 pr-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary"
                   style={{ background: "#f5f3f0", border: "1px solid #e0dcd7", color: "#1a1a1a" }}
                 />
               </div>
@@ -136,7 +136,7 @@ export default function RegisterPage() {
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder="0812xxxxxxxx"
-                  className="w-full pl-10 pr-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary"
                   style={{ background: "#f5f3f0", border: "1px solid #e0dcd7", color: "#1a1a1a" }}
                 />
               </div>
@@ -154,7 +154,7 @@ export default function RegisterPage() {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Minimal 6 karakter"
                   required
-                  className="w-full pl-10 pr-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary"
                   style={{ background: "#f5f3f0", border: "1px solid #e0dcd7", color: "#1a1a1a" }}
                 />
               </div>
@@ -172,7 +172,7 @@ export default function RegisterPage() {
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="Ulangi password"
                   required
-                  className="w-full pl-10 pr-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary"
                   style={{ background: "#f5f3f0", border: "1px solid #e0dcd7", color: "#1a1a1a" }}
                 />
               </div>
@@ -192,7 +192,7 @@ export default function RegisterPage() {
           {/* Login link */}
           <p className="text-center text-sm mt-6" style={{ color: "#6b6b6b" }}>
             Sudah punya akun?{" "}
-            <Link href="/login" className="text-blue-600 hover:underline font-medium">
+            <Link href="/login" className="text-primary hover:underline font-medium">
               Masuk di sini
             </Link>
           </p>

@@ -55,7 +55,7 @@ export default function LoginPage() {
           {/* Header */}
           <div className="text-center mb-8">
             <h1 className="text-2xl font-bold mb-2" style={{ color: "#1a1a1a" }}>
-              Masuk ke <span className="text-blue-600">Skyvora</span> Travel
+              Masuk ke <span className="text-primary">Skyvora</span> Travel
             </h1>
             <p className="text-sm" style={{ color: "#6b6b6b" }}>
               Silakan login untuk melanjutkan
@@ -84,7 +84,7 @@ export default function LoginPage() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="nama@email.com"
                   required
-                  className="w-full pl-10 pr-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary"
                   style={{ background: "#f5f3f0", border: "1px solid #e0dcd7", color: "#1a1a1a" }}
                 />
               </div>
@@ -102,7 +102,7 @@ export default function LoginPage() {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Masukkan password"
                   required
-                  className="w-full pl-10 pr-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary"
                   style={{ background: "#f5f3f0", border: "1px solid #e0dcd7", color: "#1a1a1a" }}
                 />
               </div>
@@ -122,7 +122,7 @@ export default function LoginPage() {
           {/* Register link */}
           <p className="text-center text-sm mt-6" style={{ color: "#6b6b6b" }}>
             Belum punya akun?{" "}
-            <Link href="/register" className="text-blue-600 hover:underline font-medium">
+            <Link href="/register" className="text-primary hover:underline font-medium">
               Daftar di sini
             </Link>
           </p>

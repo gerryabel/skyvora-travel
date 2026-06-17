@@ -82,7 +82,7 @@ export default function PendapatanChart() {
       <div className="p-5">
         {loading ? (
           <div className="h-64 flex items-center justify-center">
-            <div className="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
+            <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
           </div>
         ) : data.length === 0 || totalPendapatan === 0 ? (
           <div className="h-64 flex flex-col items-center justify-center text-gray-400">
@@ -94,8 +94,8 @@ export default function PendapatanChart() {
             <AreaChart data={data} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
               <defs>
                 <linearGradient id="colorPendapatan" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#2563eb" stopOpacity={0.15} />
-                  <stop offset="95%" stopColor="#2563eb" stopOpacity={0} />
+                  <stop offset="5%" stopColor="#0ea5e9" stopOpacity={0.15} />
+                  <stop offset="95%" stopColor="#0ea5e9" stopOpacity={0} />
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
@@ -126,11 +126,11 @@ export default function PendapatanChart() {
               <Area
                 type="monotone"
                 dataKey="pendapatan"
-                stroke="#2563eb"
+                stroke="#0ea5e9"
                 strokeWidth={2}
                 fill="url(#colorPendapatan)"
-                dot={{ r: 3, fill: "#2563eb", strokeWidth: 0 }}
-                activeDot={{ r: 5, fill: "#2563eb", stroke: "#fff", strokeWidth: 2 }}
+                dot={{ r: 3, fill: "#0ea5e9", strokeWidth: 0 }}
+                activeDot={{ r: 5, fill: "#0ea5e9", stroke: "#fff", strokeWidth: 2 }}
               />
             </AreaChart>
           </ResponsiveContainer>

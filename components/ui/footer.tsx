@@ -10,8 +10,8 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <Link href="/" className="flex items-center gap-2">
-              <Bus className="w-6 h-6 text-blue-600" />
-              <span className="text-2xl font-bold text-blue-600">Skyvora</span>
+              <Bus className="w-6 h-6 text-primary" />
+              <span className="text-2xl font-bold text-primary">Skyvora</span>
             </Link>
             <p className="text-gray-500 mt-2 text-sm">
               Terbang Menuju Perjalanan Tanpa Batas di Bawah Langit Dunia
@@ -22,10 +22,10 @@ export default function Footer() {
           <div>
             <h3 className="text-gray-900 font-bold mb-3">Layanan</h3>
             <div className="flex flex-col gap-2">
-              <Link href="/cari-jadwal" className="text-gray-500 hover:text-blue-600 text-sm transition-colors">
+              <Link href="/cari-jadwal" className="text-gray-500 hover:text-primary text-sm transition-colors">
                 Cari Jadwal
               </Link>
-              <Link href="/riwayat" className="text-gray-500 hover:text-blue-600 text-sm transition-colors">
+              <Link href="/riwayat" className="text-gray-500 hover:text-primary text-sm transition-colors">
                 Riwayat Booking
               </Link>
             </div>

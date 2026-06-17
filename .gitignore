@@ -44,3 +44,6 @@ next-env.d.ts
 .env.local
 .env.production
 .env.development
+
+# test scripts
+test-*.js

@@ -143,8 +143,8 @@ export default function LaporanPage() {
   }
 
   // Chart helpers
-  const COLORS = ["#2563eb", "#f97316", "#10b981", "#8b5cf6", "#ef4444", "#06b6d4", "#eab308"];
-  const PIE_COLORS = ["#2563eb", "#f97316"];
+  const COLORS = ["#0ea5e9", "#f97316", "#10b981", "#8b5cf6", "#ef4444", "#06b6d4", "#eab308"];
+  const PIE_COLORS = ["#0ea5e9", "#f97316"];
 
   function formatChartLabel(label: string) {
     if (periode === "tahunan") return label; // "Jan 2026"
@@ -222,7 +222,7 @@ export default function LaporanPage() {
                   onClick={() => setPeriode(p)}
                   className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
                     periode === p
-                      ? "bg-white text-blue-600 shadow-sm"
+                      ? "bg-white text-primary shadow-sm"
                       : "text-gray-500 hover:text-gray-700"
                   }`}
                 >
@@ -239,13 +239,13 @@ export default function LaporanPage() {
               type={periode === "tahunan" ? "number" : periode === "bulanan" ? "month" : "date"}
               value={tanggal}
               onChange={(e) => setTanggal(e.target.value)}
-              className="border border-gray-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="border border-gray-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
             />
           </div>
           <button
             onClick={loadData}
             disabled={loading}
-            className="flex items-center gap-2 bg-blue-600 text-white px-5 py-2 rounded-lg font-bold text-sm hover:bg-blue-700 transition-all disabled:opacity-50"
+            className="flex items-center gap-2 bg-primary text-white px-5 py-2 rounded-lg font-bold text-sm hover:bg-primary-dark transition-all disabled:opacity-50"
           >
             <Filter className="w-4 h-4" />
             {loading ? "Loading..." : "Terapkan"}
@@ -255,7 +255,7 @@ export default function LaporanPage() {
 
       {loading ? (
         <div className="text-center py-20 text-gray-400">
-          <div className="animate-spin w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full mx-auto mb-4" />
+          <div className="animate-spin w-8 h-8 border-4 border-primary border-t-transparent rounded-full mx-auto mb-4" />
           Memuat data laporan...
         </div>
       ) : !data ? (
@@ -266,8 +266,8 @@ export default function LaporanPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
             <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
-                  <Banknote className="w-5 h-5 text-blue-600" />
+                <div className="w-10 h-10 bg-primary-light rounded-xl flex items-center justify-center">
+                  <Banknote className="w-5 h-5 text-primary" />
                 </div>
                 <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
                   Total Pendapatan
@@ -330,15 +330,15 @@ export default function LaporanPage() {
               {/* Chart Area */}
               <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 mb-6">
                 <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                  <BarChart3 className="w-5 h-5 text-blue-600" />
+                  <BarChart3 className="w-5 h-5 text-primary" />
                   Grafik Pendapatan
                 </h2>
                 <ResponsiveContainer width="100%" height={300}>
                   <AreaChart data={chartDataRecharts} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
                     <defs>
                       <linearGradient id="colorLapPendapatan" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#2563eb" stopOpacity={0.15} />
-                        <stop offset="95%" stopColor="#2563eb" stopOpacity={0} />
+                        <stop offset="5%" stopColor="#0ea5e9" stopOpacity={0.15} />
+                        <stop offset="95%" stopColor="#0ea5e9" stopOpacity={0} />
                       </linearGradient>
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
@@ -375,11 +375,11 @@ export default function LaporanPage() {
                     <Area
                       type="monotone"
                       dataKey="pendapatan"
-                      stroke="#2563eb"
+                      stroke="#0ea5e9"
                       strokeWidth={2}
                       fill="url(#colorLapPendapatan)"
-                      dot={{ r: 3, fill: "#2563eb", strokeWidth: 0 }}
-                      activeDot={{ r: 5, fill: "#2563eb", stroke: "#fff", strokeWidth: 2 }}
+                      dot={{ r: 3, fill: "#0ea5e9", strokeWidth: 0 }}
+                      activeDot={{ r: 5, fill: "#0ea5e9", stroke: "#fff", strokeWidth: 2 }}
                     />
                   </AreaChart>
                 </ResponsiveContainer>
@@ -390,7 +390,7 @@ export default function LaporanPage() {
                 {/* Tipe Breakdown */}
                 <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                   <h3 className="text-sm font-bold text-gray-900 mb-4 flex items-center gap-2">
-                    <PieChart className="w-4 h-4 text-blue-600" />
+                    <PieChart className="w-4 h-4 text-primary" />
                     Per Tipe Perjalanan
                   </h3>
                   {tipePieData.length === 0 ? (
@@ -509,10 +509,10 @@ export default function LaporanPage() {
                   className="w-full flex items-center justify-between p-6 hover:bg-gray-50 transition-colors rounded-2xl"
                 >
                   <span className="text-lg font-bold text-gray-900 flex items-center gap-2">
-                    <ClipboardList className="w-5 h-5 text-blue-600" />
+                    <ClipboardList className="w-5 h-5 text-primary" />
                     Detail Transaksi ({data.bookings.length})
                   </span>
-                  <span className="text-sm text-blue-600 font-medium">
+                  <span className="text-sm text-primary font-medium">
                     {showTable ? "Sembunyikan" : "Tampilkan"}
                   </span>
                 </button>
@@ -561,9 +561,9 @@ export default function LaporanPage() {
                               <span
                                 className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${
                                   b.tipe === "ANTAR"
-                                    ? "bg-blue-100 text-blue-700"
+                                    ? "bg-primary-light text-primary"
                                     : b.tipe === "JEMPUT"
-                                    ? "bg-orange-100 text-orange-700"
+                                    ? "bg-accent/10 text-accent-dark"
                                     : "bg-gray-100 text-gray-700"
                                 }`}
                               >
@@ -585,7 +585,7 @@ export default function LaporanPage() {
                                   b.status === "SELESAI"
                                     ? "bg-green-100 text-green-700"
                                     : b.status === "DIKONFIRMASI"
-                                    ? "bg-blue-100 text-blue-700"
+                                    ? "bg-primary-light text-primary-dark"
                                     : b.status === "PAID"
                                     ? "bg-amber-100 text-amber-700"
                                     : "bg-gray-100 text-gray-700"

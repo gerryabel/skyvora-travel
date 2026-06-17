@@ -130,7 +130,7 @@ export default function JadwalModal({ isOpen, onClose, onSuccess, editData, arma
         {/* Header */}
         <div className="flex items-center justify-between p-5 border-b border-gray-100 sticky top-0 bg-white rounded-t-2xl z-10">
           <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-            {editData ? <Save className="w-5 h-5 text-blue-600" /> : <Plus className="w-5 h-5 text-blue-600" />}
+            {editData ? <Save className="w-5 h-5 text-primary" /> : <Plus className="w-5 h-5 text-primary" />}
             {editData ? "Edit Jadwal" : "Tambah Jadwal Baru"}
           </h2>
           <button onClick={onClose} className="text-gray-400 hover:text-gray-600 transition-colors">
@@ -157,7 +157,7 @@ export default function JadwalModal({ isOpen, onClose, onSuccess, editData, arma
                   className={`py-2.5 px-4 rounded-xl text-sm font-bold border-2 transition-all ${
                     form.tipe === t
                       ? t === "ANTAR"
-                        ? "border-blue-500 bg-blue-50 text-blue-700"
+                        ? "border-primary bg-primary-light text-primary-dark"
                         : "border-purple-500 bg-purple-50 text-purple-700"
                       : "border-gray-200 text-gray-500 hover:border-gray-300"
                   }`}
@@ -182,7 +182,7 @@ export default function JadwalModal({ isOpen, onClose, onSuccess, editData, arma
             <select
               value={form.hari}
               onChange={(e) => setForm({ ...form, hari: e.target.value })}
-              className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all bg-white"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-primary focus:ring-2 focus:ring-blue-100 outline-none transition-all bg-white"
             >
               {HARI_OPTIONS.map((h) => (
                 <option key={h.value} value={h.value}>{h.label}</option>
@@ -201,7 +201,7 @@ export default function JadwalModal({ isOpen, onClose, onSuccess, editData, arma
                 placeholder="cth: Bukittinggi"
                 value={form.asal}
                 onChange={(e) => setForm({ ...form, asal: e.target.value })}
-                className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-primary focus:ring-2 focus:ring-blue-100 outline-none transition-all"
               />
             </div>
             <div>
@@ -212,7 +212,7 @@ export default function JadwalModal({ isOpen, onClose, onSuccess, editData, arma
                 placeholder="cth: Bandara SPT"
                 value={form.tujuan}
                 onChange={(e) => setForm({ ...form, tujuan: e.target.value })}
-                className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-primary focus:ring-2 focus:ring-blue-100 outline-none transition-all"
               />
             </div>
           </div>
@@ -225,7 +225,7 @@ export default function JadwalModal({ isOpen, onClose, onSuccess, editData, arma
               placeholder="cth: Bandara Sisingamangaraja (BTU)"
               value={form.bandara}
               onChange={(e) => setForm({ ...form, bandara: e.target.value })}
-              className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-primary focus:ring-2 focus:ring-blue-100 outline-none transition-all"
             />
           </div>
 
@@ -238,7 +238,7 @@ export default function JadwalModal({ isOpen, onClose, onSuccess, editData, arma
                 required
                 value={form.jamBerangkat}
                 onChange={(e) => setForm({ ...form, jamBerangkat: e.target.value })}
-                className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-primary focus:ring-2 focus:ring-blue-100 outline-none transition-all"
               />
             </div>
             <div>
@@ -250,7 +250,7 @@ export default function JadwalModal({ isOpen, onClose, onSuccess, editData, arma
                 placeholder="80000"
                 value={form.harga}
                 onChange={(e) => setForm({ ...form, harga: e.target.value })}
-                className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-primary focus:ring-2 focus:ring-blue-100 outline-none transition-all"
               />
             </div>
           </div>
@@ -265,7 +265,7 @@ export default function JadwalModal({ isOpen, onClose, onSuccess, editData, arma
                 max="20"
                 value={form.kapasitas}
                 onChange={(e) => setForm({ ...form, kapasitas: e.target.value })}
-                className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-primary focus:ring-2 focus:ring-blue-100 outline-none transition-all"
               />
             </div>
             <div>
@@ -275,7 +275,7 @@ export default function JadwalModal({ isOpen, onClose, onSuccess, editData, arma
                 min="1"
                 value={form.minKuota}
                 onChange={(e) => setForm({ ...form, minKuota: e.target.value })}
-                className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-primary focus:ring-2 focus:ring-blue-100 outline-none transition-all"
               />
             </div>
           </div>
@@ -288,7 +288,7 @@ export default function JadwalModal({ isOpen, onClose, onSuccess, editData, arma
               placeholder="cth: 45 menit"
               value={form.estimasiWaktu}
               onChange={(e) => setForm({ ...form, estimasiWaktu: e.target.value })}
-              className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-primary focus:ring-2 focus:ring-blue-100 outline-none transition-all"
             />
           </div>
 
@@ -298,7 +298,7 @@ export default function JadwalModal({ isOpen, onClose, onSuccess, editData, arma
             <select
               value={form.armadaId}
               onChange={(e) => setForm({ ...form, armadaId: e.target.value })}
-              className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all bg-white"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-primary focus:ring-2 focus:ring-blue-100 outline-none transition-all bg-white"
             >
               <option value="">— Belum ditentukan (admin assign nanti) —</option>
               {armadaList.map((a) => (
@@ -314,7 +314,7 @@ export default function JadwalModal({ isOpen, onClose, onSuccess, editData, arma
             <button
               type="button"
               onClick={() => setForm({ ...form, aktif: !form.aktif })}
-              className={`relative w-12 h-6 rounded-full transition-colors ${form.aktif ? "bg-blue-600" : "bg-gray-300"}`}
+              className={`relative w-12 h-6 rounded-full transition-colors ${form.aktif ? "bg-primary" : "bg-gray-300"}`}
             >
               <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform ${form.aktif ? "translate-x-6" : ""}`} />
             </button>
@@ -332,7 +332,7 @@ export default function JadwalModal({ isOpen, onClose, onSuccess, editData, arma
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 py-2.5 rounded-xl bg-blue-600 text-white font-semibold text-sm hover:bg-blue-700 transition-all disabled:opacity-50"
+              className="flex-1 py-2.5 rounded-xl bg-primary text-white font-semibold text-sm hover:bg-primary-dark transition-all disabled:opacity-50"
             >
               {loading ? "Menyimpan..." : editData ? "Simpan Perubahan" : "Tambah Jadwal"}
             </button>

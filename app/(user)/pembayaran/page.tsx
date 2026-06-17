@@ -102,7 +102,7 @@ function PembayaranContent() {
             </div>
             <div className="flex justify-between">
               <span className="text-gray-500">Total</span>
-              <span className="text-blue-600 font-bold">{formatRupiah(totalHarga)}</span>
+              <span className="text-primary font-bold">{formatRupiah(totalHarga)}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-500">Status</span>
@@ -112,10 +112,10 @@ function PembayaranContent() {
             </div>
           </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/riwayat" className="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition-all inline-flex items-center gap-2">
+            <Link href="/riwayat" className="bg-primary text-white px-6 py-3 rounded-xl font-bold hover:bg-primary-dark transition-all inline-flex items-center gap-2">
               Lihat Riwayat
             </Link>
-            <Link href="/" className="border border-[#d4cfc8] text-gray-600 px-6 py-3 rounded-xl hover:border-blue-600 hover:text-blue-600 transition-all">
+            <Link href="/" className="border border-[#d4cfc8] text-gray-600 px-6 py-3 rounded-xl hover:border-primary hover:text-primary transition-all">
               Kembali ke Home
             </Link>
           </div>
@@ -130,7 +130,7 @@ function PembayaranContent() {
         <Frown className="w-12 h-12 text-gray-500 mx-auto mb-4" />
         <h1 className="text-2xl font-bold mb-2 text-gray-900">Data Tidak Lengkap</h1>
         <p className="text-gray-500 mb-6">Silakan isi form pemesanan terlebih dahulu.</p>
-        <Link href="/cari-jadwal" className="text-blue-600 hover:underline inline-flex items-center gap-1">
+        <Link href="/cari-jadwal" className="text-primary hover:underline inline-flex items-center gap-1">
           <ArrowLeft className="w-4 h-4" />
           Kembali ke Pencarian
         </Link>
@@ -219,12 +219,12 @@ function PembayaranContent() {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       <Link href={`/booking?jadwalId=${jadwalId}&asal=${asal}&tujuan=${tujuan}&penumpang=${penumpang}`}
-        className="text-blue-600 hover:underline mb-6 inline-flex items-center gap-2">
+        className="text-primary hover:underline mb-6 inline-flex items-center gap-2">
         <ArrowLeft className="w-4 h-4" />
         Kembali
       </Link>
       <h1 className="text-3xl font-bold mb-2 text-gray-900">
-        <span className="text-blue-600">Pembayaran</span>
+        <span className="text-primary">Pembayaran</span>
       </h1>
       <p className="text-gray-500 mb-8">Pilih metode pembayaran dan selesaikan transaksi</p>
 
@@ -245,13 +245,13 @@ function PembayaranContent() {
                   onClick={() => { setSelectedMethod(method.id); setError(""); }}
                   className={`p-4 rounded-xl border-2 transition-all text-left flex items-center gap-3 ${
                     selectedMethod === method.id
-                      ? "border-blue-600 bg-blue-50"
+                      ? "border-primary bg-primary-light"
                       : "border-[#e0dcd7] hover:border-[#d4cfc8]"
                   }`}
                 >
                   {getIcon(
                     method.icon,
-                    method.id === "cash" ? "text-green-600" : "text-blue-600"
+                    method.id === "cash" ? "text-green-600" : "text-primary"
                   )}
                   <div>
                     <div className="font-bold text-gray-900 text-sm">{method.nama}</div>
@@ -263,7 +263,7 @@ function PembayaranContent() {
             <button
               onClick={handleBayar}
               disabled={!selectedMethod || processing}
-              className="w-full mt-6 bg-blue-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-blue-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full mt-6 bg-primary text-white py-4 rounded-xl font-bold text-lg hover:bg-primary-dark transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {processing ? (
                 <span className="flex items-center justify-center gap-2">
@@ -281,7 +281,7 @@ function PembayaranContent() {
 
         <div className="lg:col-span-1">
           <div className="bg-[#fdfcfa] border border-[#e0dcd7] rounded-2xl p-6 sticky top-24 shadow-sm">
-            <h3 className="font-bold text-lg mb-4 text-blue-600">Ringkasan</h3>
+            <h3 className="font-bold text-lg mb-4 text-primary">Ringkasan</h3>
             <div className="space-y-3 text-sm">
               <div className="flex justify-between">
                 <span className="text-gray-500">Rute</span>
@@ -306,12 +306,12 @@ function PembayaranContent() {
               <div className="border-t border-[#e0dcd7] pt-3 mt-3">
                 <div className="flex justify-between text-lg">
                   <span className="font-bold text-gray-900">Total</span>
-                  <span className="font-bold text-blue-600">{formatRupiah(totalHarga)}</span>
+                  <span className="font-bold text-primary">{formatRupiah(totalHarga)}</span>
                 </div>
               </div>
             </div>
-            <div className="mt-4 bg-blue-50 border border-blue-200 rounded-lg p-3">
-              <p className="text-blue-700 text-xs flex items-center gap-2">
+            <div className="mt-4 bg-primary-light border border-primary-light rounded-lg p-3">
+              <p className="text-primary-dark text-xs flex items-center gap-2">
                 <Lock className="w-4 h-4" />
                 Pembayaran non-cash diproses oleh Midtrans dengan enkripsi SSL.
               </p>

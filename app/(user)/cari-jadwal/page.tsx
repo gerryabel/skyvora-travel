@@ -45,9 +45,9 @@ function JadwalCard({ j, penumpang, onPesan }: { j: any; penumpang: number; onPe
           </div>
         </div>
         <div className="text-right shrink-0">
-          <p className="text-lg font-bold text-blue-600">{formatRupiah(j.harga)}</p>
+          <p className="text-lg font-bold text-primary">{formatRupiah(j.harga)}</p>
           <p className="text-[10px] text-gray-400 mb-2">per orang</p>
-          <button onClick={() => onPesan(j.id)} disabled={sisaKursi < penumpang} className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 text-white text-xs font-medium px-4 py-2 rounded-lg transition">
+          <button onClick={() => onPesan(j.id)} disabled={sisaKursi < penumpang} className="bg-primary hover:bg-primary-dark disabled:bg-gray-300 text-white text-xs font-medium px-4 py-2 rounded-lg transition">
             {sisaKursi < penumpang ? "Penuh" : "Pesan Sekarang"}
           </button>
         </div>
@@ -95,7 +95,7 @@ export default function CariJadwalPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2 text-gray-900">Cari Jadwal <span className="text-blue-600">Perjalanan</span></h1>
+        <h1 className="text-3xl font-bold mb-2 text-gray-900">Cari Jadwal <span className="text-primary">Perjalanan</span></h1>
         <p className="text-gray-500">Pilih kota asal, tujuan, dan tanggal perjalanan</p>
       </div>
 
@@ -103,17 +103,17 @@ export default function CariJadwalPage() {
         <div className="grid grid-cols-1 md:grid-cols-[1fr,auto,1fr] gap-3 items-end mb-4">
           <div>
             <label className="block text-xs font-medium text-gray-500 mb-1.5"><MapPin className="w-3 h-3 inline mr-1" /> Dari</label>
-            <select value={asal} onChange={e => { setAsal(e.target.value); setSearched(false); }} className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm bg-gray-50 focus:bg-white focus:border-blue-400 focus:ring-2 focus:ring-blue-100 outline-none transition">
+            <select value={asal} onChange={e => { setAsal(e.target.value); setSearched(false); }} className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm bg-gray-50 focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary-light outline-none transition">
               <option value="">Pilih kota asal...</option>
               {DAFTAR_KOTA.filter(k => k.nama !== tujuan).map(k => <option key={k.nama} value={k.nama}>{k.nama}</option>)}
             </select>
           </div>
-          <button onClick={handleSwap} disabled={!asal && !tujuan} className="p-2.5 rounded-full bg-gray-100 hover:bg-blue-50 hover:text-blue-600 text-gray-400 transition self-end mb-0.5 disabled:opacity-30" title="Tukar asal & tujuan">
+          <button onClick={handleSwap} disabled={!asal && !tujuan} className="p-2.5 rounded-full bg-gray-100 hover:bg-primary-light hover:text-primary text-gray-400 transition self-end mb-0.5 disabled:opacity-30" title="Tukar asal & tujuan">
             <ArrowRightLeft className="w-4 h-4" />
           </button>
           <div>
             <label className="block text-xs font-medium text-gray-500 mb-1.5"><MapPin className="w-3 h-3 inline mr-1" /> Ke</label>
-            <select value={tujuan} onChange={e => { setTujuan(e.target.value); setSearched(false); }} className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm bg-gray-50 focus:bg-white focus:border-blue-400 focus:ring-2 focus:ring-blue-100 outline-none transition">
+            <select value={tujuan} onChange={e => { setTujuan(e.target.value); setSearched(false); }} className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm bg-gray-50 focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary-light outline-none transition">
               <option value="">Pilih kota tujuan...</option>
               {DAFTAR_KOTA.filter(k => k.nama !== asal).map(k => <option key={k.nama} value={k.nama}>{k.nama}</option>)}
             </select>
@@ -123,16 +123,16 @@ export default function CariJadwalPage() {
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
           <div>
             <label className="block text-xs font-medium text-gray-500 mb-1.5"><CalendarDays className="w-3 h-3 inline mr-1" /> Tanggal</label>
-            <input type="date" value={tanggal} min={today()} onChange={e => { setTanggal(e.target.value); setSearched(false); }} className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm bg-gray-50 focus:bg-white focus:border-blue-400 focus:ring-2 focus:ring-blue-100 outline-none transition" />
+            <input type="date" value={tanggal} min={today()} onChange={e => { setTanggal(e.target.value); setSearched(false); }} className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm bg-gray-50 focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary-light outline-none transition" />
           </div>
           <div>
             <label className="block text-xs font-medium text-gray-500 mb-1.5"><Users className="w-3 h-3 inline mr-1" /> Penumpang</label>
-            <select value={penumpang} onChange={e => setPenumpang(Number(e.target.value))} className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm bg-gray-50 focus:bg-white focus:border-blue-400 focus:ring-2 focus:ring-blue-100 outline-none transition">
+            <select value={penumpang} onChange={e => setPenumpang(Number(e.target.value))} className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm bg-gray-50 focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary-light outline-none transition">
               {[1,2,3,4,5,6].map(n => <option key={n} value={n}>{n} orang</option>)}
             </select>
           </div>
           <div className="flex items-end">
-            <button onClick={handleCari} disabled={!asal || !tujuan || !tanggal || loading} className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 text-white font-medium text-sm rounded-lg px-4 py-2.5 transition flex items-center justify-center gap-2">
+            <button onClick={handleCari} disabled={!asal || !tujuan || !tanggal || loading} className="w-full bg-primary hover:bg-primary-dark disabled:bg-gray-300 text-white font-medium text-sm rounded-lg px-4 py-2.5 transition flex items-center justify-center gap-2">
               <Search className="w-4 h-4" />{loading ? "Mencari..." : "Cari Jadwal"}
             </button>
           </div>

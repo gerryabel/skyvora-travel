@@ -33,10 +33,10 @@ const layanan = [
 ];
 
 const colorMap = {
-  blue: { bg: "bg-blue-50", icon: "text-blue-600", border: "border-blue-100", tagBg: "bg-blue-100", tagText: "text-blue-700" },
+  blue: { bg: "bg-primary-light", icon: "text-primary", border: "border-primary-light", tagBg: "bg-primary-light", tagText: "text-primary-dark" },
   green: { bg: "bg-green-50", icon: "text-green-600", border: "border-green-100", tagBg: "bg-green-100", tagText: "text-green-700" },
   purple: { bg: "bg-purple-50", icon: "text-purple-600", border: "border-purple-100", tagBg: "bg-purple-100", tagText: "text-purple-700" },
-  orange: { bg: "bg-orange-50", icon: "text-orange-600", border: "border-orange-100", tagBg: "bg-orange-100", tagText: "text-orange-700" },
+  orange: { bg: "bg-orange-50", icon: "text-accent", border: "border-orange-100", tagBg: "bg-orange-100", tagText: "text-accent-dark" },
 };
 
 export default function Layanan() {
@@ -44,7 +44,7 @@ export default function Layanan() {
     <section id="layanan" className="py-16 md:py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <p className="text-blue-600 font-bold text-sm uppercase tracking-wide mb-2">Layanan Kami</p>
+          <p className="text-primary font-bold text-sm uppercase tracking-wide mb-2">Layanan Kami</p>
           <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3">
             Pilih yang Sesuai Kebutuhan Kamu
           </h2>

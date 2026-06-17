@@ -33,7 +33,7 @@ export default function KenapaSkyvora() {
     <section className="py-16 md:py-20" style={{ background: "#f5f3f0" }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <p className="text-blue-600 font-bold text-sm uppercase tracking-wide mb-2">Kenapa Skyvora Travel?</p>
+          <p className="text-primary font-bold text-sm uppercase tracking-wide mb-2">Kenapa Skyvora Travel?</p>
           <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3">
             Kami Paham Perjalanan Kamu itu Penting
           </h2>
@@ -51,12 +51,12 @@ export default function KenapaSkyvora() {
                 className="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-lg transition-shadow group"
               >
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center shrink-0 group-hover:bg-blue-100 transition-colors">
-                    <Icon className="w-6 h-6 text-blue-600" />
+                  <div className="w-12 h-12 rounded-xl bg-primary-light flex items-center justify-center shrink-0 group-hover:bg-primary-light transition-colors">
+                    <Icon className="w-6 h-6 text-primary" />
                   </div>
                   <div className="min-w-0">
                     <h3 className="font-bold text-gray-900 text-base mb-1">{item.title}</h3>
-                    <span className="inline-block text-[10px] font-bold uppercase tracking-wider bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full whitespace-nowrap mb-2">
+                    <span className="inline-block text-[10px] font-bold uppercase tracking-wider bg-primary-light text-primary-dark px-2 py-0.5 rounded-full whitespace-nowrap mb-2">
                       {item.highlight}
                     </span>
                     <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>

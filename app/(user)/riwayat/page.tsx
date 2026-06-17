@@ -48,14 +48,14 @@ const STATUS_CONFIG: Record<string, { label: string; color: string; bg: string; 
   },
   PAID: {
     label: "Sudah Bayar",
-    color: "text-blue-600",
-    bg: "bg-blue-50 border-blue-200",
+    color: "text-primary",
+    bg: "bg-primary-light border-primary-light",
     icon: <CheckCircle className="w-3 h-3" />,
   },
   MENUNGGU_KUOTA: {
     label: "Menunggu Kuota",
-    color: "text-orange-600",
-    bg: "bg-orange-50 border-orange-200",
+    color: "text-accent",
+    bg: "bg-accent-light border-accent-light",
     icon: <Clock className="w-3 h-3" />,
   },
   DIKONFIRMASI: {
@@ -66,8 +66,8 @@ const STATUS_CONFIG: Record<string, { label: string; color: string; bg: string; 
   },
   PENDING_PAYMENT: {
     label: "Menunggu Pembayaran",
-    color: "text-orange-600",
-    bg: "bg-orange-50 border-orange-200",
+    color: "text-accent",
+    bg: "bg-accent-light border-accent-light",
     icon: <CreditCard className="w-3 h-3" />,
   },
   BERANGKAT: {
@@ -168,7 +168,7 @@ export default function RiwayatPage() {
     return (
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <h1 className="text-3xl font-bold mb-2 text-gray-900">
-          Riwayat <span className="text-blue-600">Booking</span>
+          Riwayat <span className="text-primary">Booking</span>
         </h1>
         <p className="text-gray-500 mb-8">Memuat data...</p>
         <div className="space-y-4">
@@ -188,7 +188,7 @@ export default function RiwayatPage() {
     return (
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <h1 className="text-3xl font-bold mb-2 text-gray-900">
-          Riwayat <span className="text-blue-600">Booking</span>
+          Riwayat <span className="text-primary">Booking</span>
         </h1>
         <p className="text-gray-500 mb-8">Semua pemesanan travel kamu</p>
         <div className="bg-[#fdfcfa] border border-[#e0dcd7] rounded-2xl p-10 text-center shadow-sm">
@@ -197,7 +197,7 @@ export default function RiwayatPage() {
           <p className="text-gray-500 mb-4">Kamu perlu login untuk melihat riwayat booking.</p>
           <Link
             href="/login"
-            className="inline-block bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition-all"
+            className="inline-block bg-primary text-white px-6 py-3 rounded-xl font-bold hover:bg-primary-dark transition-all"
           >
             Login Sekarang
           </Link>
@@ -211,13 +211,13 @@ export default function RiwayatPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">
-            Riwayat <span className="text-blue-600">Booking</span>
+            Riwayat <span className="text-primary">Booking</span>
           </h1>
           <p className="text-gray-500">Semua pemesanan travel kamu</p>
         </div>
         <button
           onClick={fetchBookings}
-          className="text-blue-600 hover:text-blue-700 inline-flex items-center gap-1 text-sm font-medium"
+          className="text-primary hover:text-primary-dark inline-flex items-center gap-1 text-sm font-medium"
         >
           <RefreshCw className="w-4 h-4" />
           Refresh
@@ -234,13 +234,13 @@ export default function RiwayatPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Cari rute, kode booking, atau nama..."
-              className="w-full bg-[#fdfcfa] border border-[#d4cfc8] rounded-lg pl-10 pr-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600 h-10"
+              className="w-full bg-[#fdfcfa] border border-[#d4cfc8] rounded-lg pl-10 pr-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary h-10"
             />
           </div>
           <select
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value)}
-            className="bg-[#fdfcfa] border border-[#d4cfc8] rounded-lg px-4 py-2.5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600 h-10"
+            className="bg-[#fdfcfa] border border-[#d4cfc8] rounded-lg px-4 py-2.5 text-sm text-gray-900 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary h-10"
           >
             <option value="ALL">Semua Status</option>
             <option value="PENDING">Menunggu Bayar</option>
@@ -260,9 +260,9 @@ export default function RiwayatPage() {
             <span className="text-gray-300">|</span>
             <span className="text-gray-500">Selesai <strong className="text-green-600">{bookings.filter((b) => b.status === "SELESAI").length}</strong></span>
             <span className="text-gray-300">|</span>
-            <span className="text-gray-500">Aktif <strong className="text-blue-600">{bookings.filter((b) => !["SELESAI", "DIBATALKAN"].includes(b.status)).length}</strong></span>
+            <span className="text-gray-500">Aktif <strong className="text-primary">{bookings.filter((b) => !["SELESAI", "DIBATALKAN"].includes(b.status)).length}</strong></span>
             <span className="text-gray-300">|</span>
-            <span className="text-gray-500">Dibayar <strong className="text-blue-600">{formatRupiah(bookings.filter((b) => ["PAID","DIKONFIRMASI","MENUNGGU_KUOTA","BERANGKAT","SELESAI"].includes(b.status)).reduce((s, b) => s + b.totalHarga, 0))}</strong></span>
+            <span className="text-gray-500">Dibayar <strong className="text-primary">{formatRupiah(bookings.filter((b) => ["PAID","DIKONFIRMASI","MENUNGGU_KUOTA","BERANGKAT","SELESAI"].includes(b.status)).reduce((s, b) => s + b.totalHarga, 0))}</strong></span>
           </div>
         )}
       </div>
@@ -276,7 +276,7 @@ export default function RiwayatPage() {
               <p className="text-gray-500 mb-4">Kamu belum pernah memesan travel.</p>
               <Link
                 href="/cari-jadwal"
-                className="inline-block bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition-all"
+                className="inline-block bg-primary text-white px-6 py-3 rounded-xl font-bold hover:bg-primary-dark transition-all"
               >
                 Pesan Sekarang
               </Link>
@@ -297,7 +297,7 @@ export default function RiwayatPage() {
             return (
               <div
                 key={booking.id}
-                className="bg-[#fdfcfa] border border-[#e0dcd7] rounded-2xl p-6 hover:border-blue-200 hover:shadow-md transition-all"
+                className="bg-[#fdfcfa] border border-[#e0dcd7] rounded-2xl p-6 hover:border-primary-light hover:shadow-md transition-all"
               >
                 <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
                   {/* Info */}
@@ -312,7 +312,7 @@ export default function RiwayatPage() {
                       </span>
                       <span className={`text-xs px-2 py-0.5 rounded-full border ${
                         booking.tipeTrip === "OPEN"
-                          ? "bg-blue-50 border-blue-200 text-blue-600"
+                          ? "bg-primary-light border-primary-light text-primary"
                           : "bg-purple-50 border-purple-200 text-purple-600"
                       }`}>
                         {booking.tipeTrip === "OPEN" ? "Open Trip" : "Private"}
@@ -335,7 +335,7 @@ export default function RiwayatPage() {
                       </div>
                       <div>
                         <span className="text-gray-500 text-xs">Total</span>
-                        <p className="text-blue-600 font-bold">{formatRupiah(booking.totalHarga)}</p>
+                        <p className="text-primary font-bold">{formatRupiah(booking.totalHarga)}</p>
                       </div>
                       <div>
                         <span className="text-gray-500 text-xs">Metode</span>
@@ -362,14 +362,14 @@ export default function RiwayatPage() {
                     {(booking.status === "PENDING" || booking.status === "PENDING_PAYMENT") && (
                       <Link
                         href={`/pembayaran/konfirmasi?bookingId=${booking.id}`}
-                        className="bg-blue-600 text-white px-4 py-2 rounded-lg font-bold text-sm text-center hover:bg-blue-700 transition-all"
+                        className="bg-primary text-white px-4 py-2 rounded-lg font-bold text-sm text-center hover:bg-primary-dark transition-all"
                       >
                         Bayar Sekarang
                       </Link>
                     )}
                     {booking.status === "MENUNGGU_KUOTA" && (
-                      <div className="bg-orange-50 border border-orange-200 rounded-lg p-3 text-center max-w-[200px]">
-                        <p className="text-orange-600 text-xs font-medium flex items-center gap-1 justify-center">
+                      <div className="bg-accent-light border border-accent-light rounded-lg p-3 text-center max-w-[200px]">
+                        <p className="text-accent text-xs font-medium flex items-center gap-1 justify-center">
                           <Clock className="w-3 h-3" />
                           Menunggu kuota...
                         </p>
@@ -393,7 +393,7 @@ export default function RiwayatPage() {
                     )}
                     {booking.status === "SELESAI" && (
                       <button
-                        className="text-blue-600 hover:text-blue-700 text-xs font-medium underline"
+                        className="text-primary hover:text-primary-dark text-xs font-medium underline"
                       >
                         Beri Review
                       </button>

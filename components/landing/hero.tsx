@@ -31,7 +31,7 @@ export default function Hero() {
 
               <h1 className="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-5">
                 Tidak Mau Ketinggalan{" "}
-                <span className="text-blue-400">Flight</span>{" "}
+                <span className="text-primary">Flight</span>{" "}
                 Gara-gara Ribet di Jalan?
               </h1>
 
@@ -46,7 +46,7 @@ export default function Hero() {
               <div className="flex flex-col sm:flex-row gap-3">
                 <Link
                   href="/cari-jadwal"
-                  className="inline-flex items-center justify-center gap-2 bg-blue-600 text-white px-7 py-3.5 rounded-xl font-bold text-base hover:bg-blue-700 transition-colors shadow-lg"
+                  className="inline-flex items-center justify-center gap-2 bg-primary text-white px-7 py-3.5 rounded-xl font-bold text-base hover:bg-primary-dark transition-colors shadow-lg"
                   style={{ boxShadow: "0 8px 24px rgba(37,99,235,0.35)" }}
                 >
                   Cek Jadwal & Harga
@@ -68,7 +68,7 @@ export default function Hero() {
               <div className="flex items-center gap-3 mt-6">
                 <div className="flex -space-x-2">
                   {["A", "B", "C", "D"].map((l, i) => (
-                    <div key={i} className="w-8 h-8 rounded-full bg-blue-500 border-2 border-white flex items-center justify-center text-white text-xs font-bold">
+                    <div key={i} className="w-8 h-8 rounded-full bg-primary border-2 border-white flex items-center justify-center text-white text-xs font-bold">
                       {l}
                     </div>
                   ))}
@@ -86,7 +86,7 @@ export default function Hero() {
                 <div className="w-72 h-72 rounded-full flex items-center justify-center animate-float-circle-1" style={{ background: "radial-gradient(circle, rgba(96,165,250,0.35) 0%, rgba(59,130,246,0.15) 60%, transparent 100%)", border: "1px solid rgba(96,165,250,0.2)" }}>
                   <div className="w-52 h-52 rounded-full flex items-center justify-center animate-float-circle-2" style={{ background: "radial-gradient(circle, rgba(96,165,250,0.4) 0%, rgba(59,130,246,0.2) 60%, transparent 100%)", border: "1px solid rgba(96,165,250,0.25)" }}>
                     <div className="w-32 h-32 rounded-full flex items-center justify-center animate-float-circle-3" style={{ background: "rgba(96,165,250,0.3)", border: "1px solid rgba(96,165,250,0.35)" }}>
-                      <Plane className="w-14 h-14 text-blue-200" />
+                      <Plane className="w-14 h-14 text-primary-light" />
                     </div>
                   </div>
                 </div>
@@ -100,7 +100,7 @@ export default function Hero() {
                   </div>
                 </div>
                 <div className="absolute -bottom-1 -left-6 bg-white rounded-xl px-4 py-2.5 shadow-xl flex items-center gap-2 animate-float-mid" style={{ animationDelay: "0.8s" }}>
-                  <Plane className="w-5 h-5 text-blue-600" />
+                  <Plane className="w-5 h-5 text-primary" />
                   <div>
                     <p className="text-xs text-gray-400">Ke</p>
                     <p className="text-sm font-bold text-gray-800">Bandara</p>
@@ -124,8 +124,8 @@ export default function Hero() {
               const Icon = item.icon;
               return (
                 <div key={item.text} className="flex items-center gap-3 justify-center">
-                  <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center shrink-0">
-                    <Icon className="w-5 h-5 text-blue-600" />
+                  <div className="w-10 h-10 rounded-lg bg-primary-light flex items-center justify-center shrink-0">
+                    <Icon className="w-5 h-5 text-primary" />
                   </div>
                   <span className="text-sm font-semibold text-gray-700">{item.text}</span>
                 </div>

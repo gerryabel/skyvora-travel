@@ -36,25 +36,23 @@ export default function Navbar() {
   return (
     <nav className="bg-[#fdfcfa] border-b border-[#e0dcd7] sticky top-0 z-50 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20">
           {/* Brand */}
-          <Link href="/" className="flex items-center gap-2">
-            <Bus className="w-6 h-6 text-blue-600" />
-            <span className="text-2xl font-bold text-blue-600">Skyvora</span>
-            <span className="text-sm text-gray-500 hidden sm:block">Travel</span>
+          <Link href="/" className="flex items-center">
+            <img src="/skyvora-logo-text3.svg" alt="Skyvora Travel" className="h-14 w-auto" />
           </Link>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-6">
             <Link
               href="/cari-jadwal"
-              className="text-gray-600 hover:text-blue-600 transition-colors font-medium"
+              className="text-gray-600 hover:text-primary transition-colors font-medium"
             >
               Cari Jadwal
             </Link>
             <Link
               href="/riwayat"
-              className="text-gray-600 hover:text-blue-600 transition-colors font-medium"
+              className="text-gray-600 hover:text-primary transition-colors font-medium"
             >
               Riwayat
             </Link>
@@ -62,7 +60,7 @@ export default function Navbar() {
             {user?.role === "ADMIN" && (
               <Link
                 href="/admin/dashboard"
-                className="text-gray-600 hover:text-blue-600 transition-colors font-medium flex items-center gap-1"
+                className="text-gray-600 hover:text-primary transition-colors font-medium flex items-center gap-1"
               >
                 <Shield className="w-4 h-4" />
                 Admin
@@ -73,9 +71,9 @@ export default function Navbar() {
               <div className="w-20 h-8 rounded-lg bg-gray-200 animate-pulse" />
             ) : user ? (
               <div className="flex items-center gap-3">
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-blue-50">
-                  <User className="w-4 h-4 text-blue-600" />
-                  <span className="text-sm font-medium text-blue-700">{user.name}</span>
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-primary-light">
+                  <User className="w-4 h-4 text-primary" />
+                  <span className="text-sm font-medium text-primary-dark">{user.name}</span>
                 </div>
                 <button
                   onClick={handleLogout}
@@ -88,7 +86,7 @@ export default function Navbar() {
             ) : (
               <Link
                 href="/login"
-                className="bg-blue-600 text-white px-4 py-2 rounded-lg font-bold hover:bg-blue-700 transition-colors flex items-center gap-1.5"
+                className="bg-primary text-white px-4 py-2 rounded-lg font-bold hover:bg-primary-dark transition-colors flex items-center gap-1.5"
               >
                 <LogIn className="w-4 h-4" />
                 Login
@@ -99,7 +97,7 @@ export default function Navbar() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden text-gray-600 hover:text-blue-600"
+            className="md:hidden text-gray-600 hover:text-primary"
           >
             {menuOpen ? (
               <X className="w-6 h-6" />
@@ -115,14 +113,14 @@ export default function Navbar() {
             <div className="flex flex-col gap-3">
               <Link
                 href="/cari-jadwal"
-                className="text-gray-600 hover:text-blue-600 transition-colors font-medium py-2"
+                className="text-gray-600 hover:text-primary transition-colors font-medium py-2"
                 onClick={() => setMenuOpen(false)}
               >
                 Cari Jadwal
               </Link>
               <Link
                 href="/riwayat"
-                className="text-gray-600 hover:text-blue-600 transition-colors font-medium py-2"
+                className="text-gray-600 hover:text-primary transition-colors font-medium py-2"
                 onClick={() => setMenuOpen(false)}
               >
                 Riwayat
@@ -141,9 +139,9 @@ export default function Navbar() {
 
               {user ? (
                 <>
-                  <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-blue-50">
-                    <User className="w-4 h-4 text-blue-600" />
-                    <span className="text-sm font-medium text-blue-700">{user.name}</span>
+                  <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-primary-light">
+                    <User className="w-4 h-4 text-primary" />
+                    <span className="text-sm font-medium text-primary-dark">{user.name}</span>
                   </div>
                   <button
                     onClick={() => {

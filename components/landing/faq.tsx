@@ -76,7 +76,7 @@ export default function FAQ() {
     <section className="py-16 md:py-20 bg-white">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <p className="text-blue-600 font-bold text-sm uppercase tracking-wide mb-2">Pertanyaan Umum</p>
+          <p className="text-primary font-bold text-sm uppercase tracking-wide mb-2">Pertanyaan Umum</p>
           <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3">
             Ada Pertanyaan?
           </h2>

@@ -148,7 +148,7 @@ function KonfirmasiContent() {
   if (uiStatus === "loading") {
     return (
       <div className="max-w-2xl mx-auto px-4 py-20 text-center">
-        <Loader2 className="w-12 h-12 text-blue-600 mx-auto mb-4 animate-spin" />
+        <Loader2 className="w-12 h-12 text-primary mx-auto mb-4 animate-spin" />
         <h1 className="text-2xl font-bold mb-2 text-gray-900">Memverifikasi Pembayaran...</h1>
         <p className="text-gray-500">Mohon tunggu sebentar</p>
       </div>
@@ -161,7 +161,7 @@ function KonfirmasiContent() {
         <Frown className="w-12 h-12 text-gray-500 mx-auto mb-4" />
         <h1 className="text-2xl font-bold mb-2 text-gray-900">Data Tidak Ditemukan</h1>
         <p className="text-gray-500 mb-6">Booking tidak ditemukan atau sudah kadaluarsa.</p>
-        <Link href="/" className="text-blue-600 hover:underline inline-flex items-center gap-1">
+        <Link href="/" className="text-primary hover:underline inline-flex items-center gap-1">
           <ArrowLeft className="w-4 h-4" />
           Kembali ke Home
         </Link>
@@ -193,11 +193,11 @@ function KonfirmasiContent() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
               onClick={() => router.back()}
-              className="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition-all"
+              className="bg-primary text-white px-6 py-3 rounded-xl font-bold hover:bg-primary-dark transition-all"
             >
               Coba Lagi
             </button>
-            <Link href="/riwayat" className="border border-[#d4cfc8] text-gray-600 px-6 py-3 rounded-xl hover:border-blue-600 hover:text-blue-600 transition-all">
+            <Link href="/riwayat" className="border border-[#d4cfc8] text-gray-600 px-6 py-3 rounded-xl hover:border-primary hover:text-primary transition-all">
               Lihat Riwayat
             </Link>
           </div>
@@ -223,7 +223,7 @@ function KonfirmasiContent() {
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-500">Total</span>
-                <span className="text-blue-600 font-bold">{formatRupiah(booking.totalHarga)}</span>
+                <span className="text-primary font-bold">{formatRupiah(booking.totalHarga)}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-500">Metode</span>
@@ -242,12 +242,12 @@ function KonfirmasiContent() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
               onClick={() => { setCheckCount(0); setUiStatus("loading"); }}
-              className="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition-all inline-flex items-center gap-2"
+              className="bg-primary text-white px-6 py-3 rounded-xl font-bold hover:bg-primary-dark transition-all inline-flex items-center gap-2"
             >
               <RefreshCw className="w-4 h-4" />
               Cek Status
             </button>
-            <Link href="/riwayat" className="border border-[#d4cfc8] text-gray-600 px-6 py-3 rounded-xl hover:border-blue-600 hover:text-blue-600 transition-all">
+            <Link href="/riwayat" className="border border-[#d4cfc8] text-gray-600 px-6 py-3 rounded-xl hover:border-primary hover:text-primary transition-all">
               Lihat Riwayat
             </Link>
           </div>
@@ -281,7 +281,7 @@ function KonfirmasiContent() {
             </div>
             <div className="flex justify-between">
               <span className="text-gray-500">Total Bayar</span>
-              <span className="text-blue-600 font-bold">{formatRupiah(booking.totalHarga)}</span>
+              <span className="text-primary font-bold">{formatRupiah(booking.totalHarga)}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-500">Status</span>
@@ -290,10 +290,10 @@ function KonfirmasiContent() {
           </div>
         )}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link href="/riwayat" className="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition-all inline-flex items-center gap-2">
+          <Link href="/riwayat" className="bg-primary text-white px-6 py-3 rounded-xl font-bold hover:bg-primary-dark transition-all inline-flex items-center gap-2">
             Lihat Riwayat
           </Link>
-          <Link href="/" className="border border-[#d4cfc8] text-gray-600 px-6 py-3 rounded-xl hover:border-blue-600 hover:text-blue-600 transition-all">
+          <Link href="/" className="border border-[#d4cfc8] text-gray-600 px-6 py-3 rounded-xl hover:border-primary hover:text-primary transition-all">
             Kembali ke Home
           </Link>
         </div>

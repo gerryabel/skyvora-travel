@@ -135,7 +135,7 @@ export default function AdminUsersPage() {
         <div className="flex items-center gap-2 self-start">
           <button
             onClick={openCreate}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition-all active:scale-95"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-white text-sm font-semibold hover:bg-primary-dark transition-all active:scale-95"
           >
             <Plus className="w-4 h-4" />
             Tambah User
@@ -153,8 +153,8 @@ export default function AdminUsersPage() {
       <div className="grid grid-cols-3 gap-4 mb-6">
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center">
-              <User className="w-5 h-5 text-blue-600" />
+            <div className="w-10 h-10 bg-primary-light rounded-xl flex items-center justify-center">
+              <User className="w-5 h-5 text-primary" />
             </div>
             <div>
               <p className="text-xl font-extrabold text-gray-900">{totalUsers}</p>
@@ -195,7 +195,7 @@ export default function AdminUsersPage() {
             placeholder="Cari nama atau email..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-blue-300 focus:ring-2 focus:ring-blue-100 transition-all"
+            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-blue-100 transition-all"
           />
         </div>
         <div className="flex gap-2">
@@ -205,12 +205,12 @@ export default function AdminUsersPage() {
               onClick={() => setRoleFilter(role)}
               className={`px-4 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition-all ${
                 roleFilter === role
-                  ? "bg-blue-600 text-white"
+                  ? "bg-primary text-white"
                   : "bg-white border border-gray-200 text-gray-500 hover:bg-gray-50"
               }`}
-            >
+              >
               {role === "ALL" ? "Semua" : role === "ADMIN" ? "Admin" : "Member"}
-            </button>
+              </button>
           ))}
         </div>
       </div>
@@ -278,7 +278,7 @@ export default function AdminUsersPage() {
                   required
                   defaultValue={modal.user?.name || ""}
                   placeholder="Masukkan nama lengkap"
-                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-blue-300 focus:ring-2 focus:ring-blue-100 transition-all"
+                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-blue-100 transition-all"
                 />
               </div>
               <div>
@@ -289,7 +289,7 @@ export default function AdminUsersPage() {
                   required
                   defaultValue={modal.user?.email || ""}
                   placeholder="contoh@email.com"
-                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-blue-300 focus:ring-2 focus:ring-blue-100 transition-all"
+                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-blue-100 transition-all"
                 />
               </div>
               <div>
@@ -299,7 +299,7 @@ export default function AdminUsersPage() {
                   type="tel"
                   defaultValue={modal.user?.phone || ""}
                   placeholder="08xxxxxxxxxx"
-                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-blue-300 focus:ring-2 focus:ring-blue-100 transition-all"
+                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-blue-100 transition-all"
                 />
               </div>
               <div>
@@ -312,7 +312,7 @@ export default function AdminUsersPage() {
                   required={modal.type === "create"}
                   placeholder={modal.type === "create" ? "Minimal 6 karakter" : "••••••••"}
                   minLength={6}
-                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-blue-300 focus:ring-2 focus:ring-blue-100 transition-all"
+                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-blue-100 transition-all"
                 />
               </div>
               <div>
@@ -320,7 +320,7 @@ export default function AdminUsersPage() {
                 <select
                   name="role"
                   defaultValue={modal.user?.role || "USER"}
-                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-blue-300 focus:ring-2 focus:ring-blue-100 transition-all bg-white"
+                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-blue-100 transition-all bg-white"
                 >
                   <option value="USER">Member</option>
                   <option value="ADMIN">Admin</option>
@@ -340,7 +340,7 @@ export default function AdminUsersPage() {
                 <button
                   type="submit"
                   disabled={formLoading}
-                  className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition-all disabled:opacity-50 active:scale-95"
+                  className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-white text-sm font-semibold hover:bg-primary-dark transition-all disabled:opacity-50 active:scale-95"
                 >
                   <Save className="w-4 h-4" />
                   {formLoading ? "Menyimpan..." : modal.type === "create" ? "Tambah" : "Simpan"}
@@ -395,9 +395,9 @@ function UserRow({ user, onEdit, onDelete }: { user: UserData; onEdit: (u: UserD
       >
         <div className="col-span-3 flex items-center gap-3 min-w-0 cursor-pointer" onClick={() => setExpanded(!expanded)}>
           <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-transform duration-300 ${
-            expanded ? "bg-blue-100 scale-110" : "bg-blue-50"
+            expanded ? "bg-primary-light scale-110" : "bg-primary-light"
           }`}>
-            <User className="w-5 h-5 text-blue-600" />
+            <User className="w-5 h-5 text-primary" />
           </div>
           <div className="min-w-0">
             <p className="font-semibold text-gray-900 text-sm truncate">{user.name}</p>
@@ -425,7 +425,7 @@ function UserRow({ user, onEdit, onDelete }: { user: UserData; onEdit: (u: UserD
         <div className="col-span-1 flex items-center justify-end gap-1">
           <button
             onClick={() => onEdit(user)}
-            className="p-2 rounded-lg hover:bg-blue-50 text-gray-400 hover:text-blue-600 transition-colors"
+            className="p-2 rounded-lg hover:bg-primary-light text-gray-400 hover:text-primary transition-colors"
             title="Edit"
           >
             <Pencil className="w-4 h-4" />
@@ -448,9 +448,9 @@ function UserRow({ user, onEdit, onDelete }: { user: UserData; onEdit: (u: UserD
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3 min-w-0">
             <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-transform duration-300 ${
-              expanded ? "bg-blue-100 scale-110" : "bg-blue-50"
+              expanded ? "bg-primary-light scale-110" : "bg-primary-light"
             }`}>
-              <User className="w-5 h-5 text-blue-600" />
+              <User className="w-5 h-5 text-primary" />
             </div>
             <div className="min-w-0">
               <p className="font-semibold text-gray-900 text-sm truncate">{user.name}</p>
@@ -460,7 +460,7 @@ function UserRow({ user, onEdit, onDelete }: { user: UserData; onEdit: (u: UserD
           <div className="flex items-center gap-1">
             <button
               onClick={(e) => { e.stopPropagation(); onEdit(user); }}
-              className="p-2 rounded-lg hover:bg-blue-50 text-gray-400 hover:text-blue-600 transition-colors"
+              className="p-2 rounded-lg hover:bg-primary-light text-gray-400 hover:text-primary transition-colors"
             >
               <Pencil className="w-4 h-4" />
             </button>
@@ -502,7 +502,7 @@ function UserRow({ user, onEdit, onDelete }: { user: UserData; onEdit: (u: UserD
           </div>
           <div className="mt-3 flex items-center gap-2">
             <span className="text-xs text-gray-400">Total booking:</span>
-            <span className="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full">
+            <span className="text-xs font-bold text-primary bg-primary-light px-2 py-0.5 rounded-full">
               {user._count.bookings} booking
             </span>
           </div>

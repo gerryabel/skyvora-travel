@@ -33,7 +33,7 @@ export default function CaraPesan() {
     <section id="cara-pesan" className="py-16 md:py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <p className="text-blue-600 font-bold text-sm uppercase tracking-wide mb-2">Cara Pesan</p>
+          <p className="text-primary font-bold text-sm uppercase tracking-wide mb-2">Cara Pesan</p>
           <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3">
             Booking Gampang, Cukup 4 Langkah
           </h2>
@@ -48,11 +48,11 @@ export default function CaraPesan() {
             return (
               <div key={item.step} className="text-center relative">
                 {i < steps.length - 1 && (
-                  <div className="hidden lg:block absolute top-10 left-[60%] w-[80%] h-0.5 bg-blue-100" />
+                  <div className="hidden lg:block absolute top-10 left-[60%] w-[80%] h-0.5 bg-primary-light" />
                 )}
-                <div className="relative inline-flex items-center justify-center w-20 h-20 bg-blue-50 rounded-2xl mb-5">
-                  <Icon className="w-9 h-9 text-blue-600" />
-                  <span className="absolute -top-2 -right-2 w-7 h-7 bg-blue-600 text-white text-xs font-bold rounded-full flex items-center justify-center">
+                <div className="relative inline-flex items-center justify-center w-20 h-20 bg-primary-light rounded-2xl mb-5">
+                  <Icon className="w-9 h-9 text-primary" />
+                  <span className="absolute -top-2 -right-2 w-7 h-7 bg-primary text-white text-xs font-bold rounded-full flex items-center justify-center">
                     {item.step}
                   </span>
                 </div>

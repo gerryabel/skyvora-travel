@@ -79,8 +79,8 @@ export default async function AdminDashboard() {
         <div className="flex gap-3 mt-4 md:mt-0">
           <Link
             href="/admin/jadwal"
-            className="bg-blue-600 text-white px-5 py-2.5 rounded-xl font-bold text-sm hover:bg-blue-700 transition-all inline-flex items-center gap-2"
-            style={{ boxShadow: "0 4px 12px rgba(37,99,235,0.3)" }}
+            className="bg-primary text-white px-5 py-2.5 rounded-xl font-bold text-sm hover:bg-primary-dark transition-all inline-flex items-center gap-2"
+            style={{ boxShadow: "0 4px 12px rgba(14,165,233,0.3)" }}
           >
             <Calendar className="w-4 h-4" />
             Kelola Jadwal
@@ -93,8 +93,8 @@ export default async function AdminDashboard() {
         {/* Total Booking */}
         <div className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
           <div className="flex items-center justify-between mb-3">
-            <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center">
-              <ClipboardList className="w-5 h-5 text-blue-600" />
+            <div className="w-10 h-10 bg-primary-light rounded-xl flex items-center justify-center">
+              <ClipboardList className="w-5 h-5 text-primary" />
             </div>
             <span className="text-xs font-medium text-green-600 bg-green-50 px-2 py-0.5 rounded-full">
               <TrendingUp className="w-3 h-3 inline mr-0.5" />Total
@@ -171,10 +171,10 @@ export default async function AdminDashboard() {
         <div className="lg:col-span-3 bg-white rounded-2xl border border-gray-100 shadow-sm">
           <div className="flex items-center justify-between p-5 border-b border-gray-100">
             <h3 className="font-bold text-gray-900 flex items-center gap-2">
-              <ClipboardList className="w-5 h-5 text-blue-600" />
+              <ClipboardList className="w-5 h-5 text-primary" />
               Booking Terbaru
             </h3>
-            <Link href="/admin/bookings" className="text-blue-600 text-sm font-medium hover:underline flex items-center gap-1">
+            <Link href="/admin/bookings" className="text-primary text-sm font-medium hover:underline flex items-center gap-1">
               Lihat Semua <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
@@ -185,8 +185,8 @@ export default async function AdminDashboard() {
               recentBookings.map((b) => (
                 <div key={b.id} className="px-5 py-3.5 flex items-center justify-between hover:bg-gray-50 transition-colors">
                   <div className="flex items-center gap-3 min-w-0">
-                    <div className="w-9 h-9 bg-blue-50 rounded-lg flex items-center justify-center shrink-0">
-                      <Plane className="w-4 h-4 text-blue-600" />
+                    <div className="w-9 h-9 bg-primary-light rounded-lg flex items-center justify-center shrink-0">
+                      <Plane className="w-4 h-4 text-primary" />
                     </div>
                     <div className="min-w-0">
                       <p className="font-semibold text-gray-900 text-sm truncate">{b.user?.name || "—"}</p>
@@ -200,7 +200,7 @@ export default async function AdminDashboard() {
                       b.status === "SELESAI" ? "bg-gray-100 text-gray-600" :
                       b.status === "DIBATALKAN" ? "bg-red-50 text-red-600" :
                       b.status === "PENDING_PAYMENT" || b.status === "PENDING" ? "bg-orange-50 text-orange-600" :
-                      b.status === "PAID" ? "bg-blue-50 text-blue-700" :
+                      b.status === "PAID" ? "bg-primary-light text-primary-dark" :
                       "bg-amber-50 text-amber-600"
                     }`}>
                       {b.status === "DIKONFIRMASI" ? "Terkonfirmasi" :
@@ -222,10 +222,10 @@ export default async function AdminDashboard() {
         <div className="lg:col-span-2 bg-white rounded-2xl border border-gray-100 shadow-sm">
           <div className="flex items-center justify-between p-5 border-b border-gray-100">
             <h3 className="font-bold text-gray-900 flex items-center gap-2">
-              <Calendar className="w-5 h-5 text-blue-600" />
+              <Calendar className="w-5 h-5 text-primary" />
               Kuota Jadwal
             </h3>
-            <Link href="/admin/jadwal" className="text-blue-600 text-sm font-medium hover:underline flex items-center gap-1">
+            <Link href="/admin/jadwal" className="text-primary text-sm font-medium hover:underline flex items-center gap-1">
               Kelola <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
@@ -284,7 +284,7 @@ export default async function AdminDashboard() {
         ].map((item) => {
           const Icon = item.icon;
           const colorClasses: Record<string, string> = {
-            blue: "bg-blue-50 text-blue-600",
+            blue: "bg-primary-light text-primary",
             green: "bg-green-50 text-green-600",
             purple: "bg-purple-50 text-purple-600",
             cyan: "bg-cyan-50 text-cyan-600",

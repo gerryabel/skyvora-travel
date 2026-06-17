@@ -33,7 +33,7 @@ export default function Testimonial() {
     <section className="py-16 md:py-20" style={{ background: "#f5f3f0" }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <p className="text-blue-600 font-bold text-sm uppercase tracking-wide mb-2">Testimonial</p>
+          <p className="text-primary font-bold text-sm uppercase tracking-wide mb-2">Testimonial</p>
           <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3">
             Apa Kata Pelanggan Kami
           </h2>
@@ -48,7 +48,7 @@ export default function Testimonial() {
               key={t.name}
               className="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-lg transition-shadow"
             >
-              <Quote className="w-8 h-8 text-blue-200 mb-3" />
+              <Quote className="w-8 h-8 text-primary-light mb-3" />
               <p className="text-gray-600 text-sm leading-relaxed mb-5">
                 &ldquo;{t.text}&rdquo;
               </p>
@@ -59,8 +59,8 @@ export default function Testimonial() {
                 <span className="text-xs text-gray-400 ml-1">({t.trip})</span>
               </div>
               <div className="border-t border-gray-100 pt-4 flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
-                  <span className="text-sm font-bold text-blue-700">{t.initials}</span>
+                <div className="w-10 h-10 rounded-full bg-primary-light flex items-center justify-center">
+                  <span className="text-sm font-bold text-primary-dark">{t.initials}</span>
                 </div>
                 <div>
                   <p className="font-bold text-gray-900 text-sm">{t.name}</p>

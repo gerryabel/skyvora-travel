@@ -88,7 +88,7 @@ function PaginationControls({ currentPage, totalPages, totalItems, onChange }: {
               onClick={() => onChange(p)}
               className={`w-8 h-8 rounded-lg text-xs font-bold transition-colors ${
                 p === currentPage
-                  ? "bg-blue-600 text-white"
+                  ? "bg-primary text-white"
                   : "border border-gray-200 text-gray-500 hover:bg-gray-50"
               }`}
             >
@@ -238,22 +238,22 @@ export default function AdminJadwalPage() {
         )}
         <td className="px-5 py-4">
           <div className="flex items-center gap-2">
-            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${j.tipe === "ANTAR" ? "bg-blue-50 text-blue-600" : "bg-purple-50 text-purple-600"}`}>{j.tipe}</span>
+            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${j.tipe === "ANTAR" ? "bg-primary-light text-primary" : "bg-purple-50 text-purple-600"}`}>{j.tipe}</span>
             <span className="font-semibold text-gray-900 text-sm">{j.rute}</span>
           </div>
         </td>
         <td className="px-5 py-4">
           {isEditing ? (
             <div className="flex items-center gap-1.5">
-              <input type="time" value={editJamValue} onChange={(e) => setEditJamValue(e.target.value)} className="border border-gray-300 rounded-lg px-2 py-1.5 text-sm w-24 focus:border-blue-500 focus:outline-none" autoFocus />
+              <input type="time" value={editJamValue} onChange={(e) => setEditJamValue(e.target.value)} className="border border-gray-300 rounded-lg px-2 py-1.5 text-sm w-24 focus:border-primary focus:outline-none" autoFocus />
               <button onClick={() => saveJam(j.id)} disabled={actionLoading === j.id} className="p-1.5 rounded-lg bg-green-50 text-green-600 hover:bg-green-100 transition-colors" title="Simpan"><Check className="w-4 h-4" /></button>
               <button onClick={cancelEditJam} className="p-1.5 rounded-lg bg-gray-50 text-gray-400 hover:bg-gray-100 transition-colors" title="Batal"><X className="w-4 h-4" /></button>
             </div>
           ) : (
             <div className="flex items-center gap-1.5">
-              <span className={`font-bold text-sm ${isSaved ? "text-green-600" : "text-blue-600"}`}>{j.jamBerangkat}</span>
+              <span className={`font-bold text-sm ${isSaved ? "text-green-600" : "text-primary"}`}>{j.jamBerangkat}</span>
               {isSaved && <Check className="w-3.5 h-3.5 text-green-500" />}
-              <button onClick={() => startEditJam(j)} className="p-1 rounded hover:bg-blue-50 text-gray-400 hover:text-blue-600 transition-colors ml-1" title="Ubah jam"><Clock className="w-3.5 h-3.5" /></button>
+              <button onClick={() => startEditJam(j)} className="p-1 rounded hover:bg-primary-light text-gray-400 hover:text-primary transition-colors ml-1" title="Ubah jam"><Clock className="w-3.5 h-3.5" /></button>
             </div>
           )}
         </td>
@@ -303,7 +303,7 @@ export default function AdminJadwalPage() {
             placeholder="Cari rute, asal, tujuan..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-gray-200 text-sm bg-white focus:border-blue-400 focus:ring-2 focus:ring-blue-100 outline-none transition"
+            className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-gray-200 text-sm bg-white focus:border-primary focus:ring-2 focus:ring-primary-light outline-none transition"
           />
         </div>
 
@@ -312,7 +312,7 @@ export default function AdminJadwalPage() {
           <button
             onClick={() => setFilterHari("ALL")}
             className={`px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap transition-all ${
-              filterHari === "ALL" ? "bg-blue-600 text-white" : "bg-white border border-gray-200 text-gray-500 hover:bg-gray-50"
+              filterHari === "ALL" ? "bg-primary text-white" : "bg-white border border-gray-200 text-gray-500 hover:bg-gray-50"
             }`}
           >
             Semua Hari
@@ -322,7 +322,7 @@ export default function AdminJadwalPage() {
               key={hari}
               onClick={() => setFilterHari(hari)}
               className={`px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap transition-all ${
-                filterHari === hari ? "bg-blue-600 text-white" : "bg-white border border-gray-200 text-gray-500 hover:bg-gray-50"
+                filterHari === hari ? "bg-primary text-white" : "bg-white border border-gray-200 text-gray-500 hover:bg-gray-50"
               }`}
             >
               {HARI_LABELS[hari]} ({jadwalByHari[hari]?.length || 0})
@@ -350,8 +350,8 @@ export default function AdminJadwalPage() {
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
           <div className="px-5 py-3.5 border-b border-gray-100 bg-gray-50/50 flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <CalendarDays className="w-4 h-4 text-blue-600" />
-              <h3 className="font-bold text-gray-900">{HARI_LABELS[filterHari]}</h3>
+              <CalendarDays className="w-4 h-4 text-primary" />
+              <h3 className="font-bold text-gray-900">{HARI_LABEL[filterHari]}</h3>
               <span className="text-xs text-gray-400">({visibleItems.length} jadwal)</span>
             </div>
           </div>
@@ -388,7 +388,7 @@ export default function AdminJadwalPage() {
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
           <div className="px-5 py-3.5 border-b border-gray-100 bg-gray-50/50 flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <CalendarDays className="w-4 h-4 text-blue-600" />
+              <CalendarDays className="w-4 h-4 text-primary" />
               <h3 className="font-bold text-gray-900">Semua Hari</h3>
               <span className="text-xs text-gray-400">({visibleItems.length} jadwal)</span>
             </div>

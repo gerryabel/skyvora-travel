@@ -56,7 +56,7 @@ function formatRupiah(n: number) {
 const STATUS_CONFIG: Record<string, { label: string; color: string }> = {
   PENDING: { label: "Menunggu Bayar", color: "bg-amber-50 text-amber-700" },
   PENDING_PAYMENT: { label: "Menunggu Bayar", color: "bg-amber-50 text-amber-700" },
-  PAID: { label: "Sudah Bayar", color: "bg-blue-50 text-blue-700" },
+  PAID: { label: "Sudah Bayar", color: "bg-primary-light text-primary-dark" },
   DIKONFIRMASI: { label: "Terkonfirmasi", color: "bg-green-50 text-green-700" },
   SELESAI: { label: "Selesai", color: "bg-gray-100 text-gray-600" },
   DIBATALKAN: { label: "Dibatalkan", color: "bg-red-50 text-red-600" },
@@ -127,18 +127,18 @@ export default function AdminBookingsPage() {
         <button
           onClick={() => setFilter("ALL")}
           className={`px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap transition-all ${
-            filter === "ALL" ? "bg-blue-600 text-white" : "bg-white border border-gray-200 text-gray-500 hover:bg-gray-50"
+            filter === "ALL" ? "bg-primary text-white" : "bg-white border border-gray-200 text-gray-500 hover:bg-gray-50"
           }`}
-        >
+          >
           Semua ({bookings.length})
-        </button>
-        {Object.entries(STATUS_CONFIG).map(([key, cfg]) => (
+          </button>
+          {Object.entries(STATUS_CONFIG).map(([key, cfg]) => (
           (statusCounts[key] || 0) > 0 && (
             <button
               key={key}
               onClick={() => setFilter(key)}
               className={`px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap transition-all ${
-                filter === key ? "bg-blue-600 text-white" : "bg-white border border-gray-200 text-gray-500 hover:bg-gray-50"
+                filter === key ? "bg-primary text-white" : "bg-white border border-gray-200 text-gray-500 hover:bg-gray-50"
               }`}
             >
               {cfg.label} ({statusCounts[key] || 0})
@@ -173,7 +173,7 @@ export default function AdminBookingsPage() {
               <div
                 key={b.id}
                 className={`bg-white rounded-2xl border shadow-sm overflow-hidden transition-all duration-300 ${
-                  isExpanded ? "border-blue-200 shadow-md shadow-blue-50" : "border-gray-100"
+                  isExpanded ? "border-primary shadow-md shadow-blue-50" : "border-gray-100"
                 }`}
               >
                 {/* Main Row */}
@@ -184,16 +184,16 @@ export default function AdminBookingsPage() {
                   <div className="flex items-center justify-between gap-4">
                     <div className="flex items-center gap-3 min-w-0">
                       <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-transform duration-300 ${
-                        isExpanded ? "bg-blue-100 scale-110" : "bg-blue-50"
+                        isExpanded ? "bg-primary-light scale-110" : "bg-primary-light"
                       }`}>
-                        <User className="w-5 h-5 text-blue-600" />
+                        <User className="w-5 h-5 text-primary" />
                       </div>
                       <div className="min-w-0">
                         <div className="flex items-center gap-2 flex-wrap">
                           <span className="font-bold text-gray-900 text-sm">{b.user?.name || "—"}</span>
                           <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${sc.color}`}>{sc.label}</span>
                           <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                            b.tipeTrip === "OPEN" ? "bg-blue-50 text-blue-600" : "bg-purple-50 text-purple-600"
+                            b.tipeTrip === "OPEN" ? "bg-primary-light text-primary" : "bg-purple-50 text-purple-600"
                           }`}>
                             {b.tipeTrip === "OPEN" ? "Open Trip" : "Private"}
                           </span>

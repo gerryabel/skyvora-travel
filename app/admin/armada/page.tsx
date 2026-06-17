@@ -16,7 +16,7 @@ const HARI_LABEL: Record<string, string> = {
 
 const STATUS_OPTIONS = [
   { value: "STANDBY", label: "Standby", color: "bg-green-50 text-green-700 border-green-200" },
-  { value: "DALAM_PERJALANAN", label: "Perjalanan", color: "bg-blue-50 text-blue-700 border-blue-200" },
+  { value: "DALAM_PERJALANAN", label: "Perjalanan", color: "bg-primary-light text-primary-dark border-blue-200" },
   { value: "MAINTENANCE", label: "Maintenance", color: "bg-yellow-50 text-yellow-700 border-yellow-200" },
   { value: "TIDAK_AKTIF", label: "Tidak Aktif", color: "bg-red-50 text-red-700 border-red-200" },
 ];
@@ -312,8 +312,8 @@ export default function AdminArmadaPage() {
           </button>
           <button
             onClick={handleAdd}
-            className="bg-blue-600 text-white px-5 py-2.5 rounded-xl font-bold text-sm hover:bg-blue-700 transition-all inline-flex items-center gap-2"
-            style={{ boxShadow: "0 4px 12px rgba(37,99,235,0.3)" }}
+            className="bg-primary text-white px-5 py-2.5 rounded-xl font-bold text-sm hover:bg-primary-dark transition-all inline-flex items-center gap-2"
+            style={{ boxShadow: "0 4px 12px rgba(14,165,233,0.3)" }}
           >
             <Plus className="w-4 h-4" />
             Tambah Armada
@@ -342,8 +342,8 @@ export default function AdminArmadaPage() {
           </div>
         </div>
         <div className="bg-white rounded-2xl border border-gray-100 p-4 flex items-center gap-3">
-          <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center">
-            <div className="w-3 h-3 bg-blue-500 rounded-full" />
+          <div className="w-10 h-10 bg-primary-light rounded-xl flex items-center justify-center">
+            <div className="w-3 h-3 bg-primary rounded-full" />
           </div>
           <div>
             <p className="text-2xl font-extrabold text-gray-900">{perjalananCount}</p>
@@ -385,8 +385,8 @@ export default function AdminArmadaPage() {
               <div className="p-5">
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center">
-                      <Car className="w-5 h-5 text-blue-600" />
+                    <div className="w-10 h-10 bg-primary-light rounded-xl flex items-center justify-center">
+                      <Car className="w-5 h-5 text-primary" />
                     </div>
                     <div>
                       <h3 className="font-bold text-gray-900">{a.nama}</h3>
@@ -414,7 +414,7 @@ export default function AdminArmadaPage() {
                             <button
                               key={s.value}
                               onClick={() => a.status !== s.value && handleStatusChange(a.id, s.value)}
-                              className={`w-full text-left px-3 py-2 text-xs font-semibold hover:bg-gray-50 flex items-center gap-2 ${a.status === s.value ? "text-blue-600" : "text-gray-600"}`}
+                              className={`w-full text-left px-3 py-2 text-xs font-semibold hover:bg-gray-50 flex items-center gap-2 ${a.status === s.value ? "text-primary" : "text-gray-600"}`}
                             >
                               <span className={`w-2.5 h-2.5 rounded-full ${s.color.split(" ")[0].replace("50", "500")}`} />
                               {s.label}
@@ -469,14 +469,14 @@ export default function AdminArmadaPage() {
               <div className="px-5 py-3 bg-gray-50/50 border-t border-gray-100 flex items-center justify-end gap-1 rounded-b-2xl">
                 <button
                   onClick={() => handleOpenDetail(a)}
-                  className="p-2 rounded-lg hover:bg-purple-50 text-purple-600 transition-colors"
+                  className="p-2 rounded-lg hover:bg-primary-light text-primary transition-colors"
                   title="Detail Jadwal"
                 >
                   <Eye className="w-4 h-4" />
                 </button>
                 <button
                   onClick={() => handleEdit(a)}
-                  className="p-2 rounded-lg hover:bg-blue-50 text-blue-600 transition-colors"
+                  className="p-2 rounded-lg hover:bg-primary-light text-primary transition-colors"
                   title="Edit"
                 >
                   <Edit className="w-4 h-4" />
@@ -562,14 +562,14 @@ export default function AdminArmadaPage() {
                             <div className="flex items-center gap-2">
                               <Calendar className="w-4 h-4 text-gray-400" />
                               <span className="font-bold text-sm text-gray-700">{HARI_LABEL[hari]}</span>
-                              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-600">
+                              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary-light text-primary">
                                 {jadwals.length} jadwal
                               </span>
                             </div>
                             <div className="flex items-center gap-2">
                               <button
                                 onClick={(e) => { e.stopPropagation(); openAddJadwal(hari); }}
-                                className="p-1.5 rounded-lg hover:bg-blue-50 text-blue-600 transition-colors"
+                                className="p-1.5 rounded-lg hover:bg-primary-light text-primary transition-colors"
                                 title="Tambah jadwal"
                               >
                                 <Plus className="w-4 h-4" />
@@ -586,7 +586,7 @@ export default function AdminArmadaPage() {
                                   <p className="text-gray-400 text-xs">Belum ada jadwal di hari ini.</p>
                                   <button
                                     onClick={() => openAddJadwal(hari)}
-                                    className="mt-2 text-xs font-semibold text-blue-600 hover:text-blue-700"
+                                    className="mt-2 text-xs font-semibold text-primary hover:text-primary-dark"
                                   >
                                     + Tambah jadwal
                                   </button>
@@ -597,7 +597,7 @@ export default function AdminArmadaPage() {
                                     <div className="min-w-0 flex-1">
                                       <div className="flex items-center gap-2 flex-wrap">
                                         <span className="font-semibold text-gray-900 text-sm">{j.rute}</span>
-                                        <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${j.tipe === "ANTAR" ? "bg-blue-50 text-blue-600" : "bg-purple-50 text-purple-600"}`}>
+                                        <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${j.tipe === "ANTAR" ? "bg-primary-light text-primary" : "bg-purple-50 text-purple-600"}`}>
                                           {j.tipe}
                                         </span>
                                         <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${j.aktif ? "bg-green-50 text-green-600" : "bg-red-50 text-red-600"}`}>
@@ -616,7 +616,7 @@ export default function AdminArmadaPage() {
                                     <div className="flex items-center gap-1 shrink-0">
                                       <button
                                         onClick={() => openEditJadwal(j)}
-                                        className="p-1.5 rounded-lg hover:bg-blue-50 text-gray-400 hover:text-blue-600 transition-colors"
+                                        className="p-1.5 rounded-lg hover:bg-primary-light text-gray-400 hover:text-primary transition-colors"
                                         title="Edit"
                                       >
                                         <Edit className="w-3.5 h-3.5" />
@@ -694,7 +694,7 @@ export default function AdminArmadaPage() {
                     value={jadwalForm.rute}
                     onChange={e => setJadwalForm({ ...jadwalForm, rute: e.target.value })}
                     placeholder="cth: Padang → Bukittinggi"
-                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-blue-300 focus:ring-2 focus:ring-blue-100 transition-all"
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-blue-100 transition-all"
                   />
                 </div>
               </div>
@@ -704,7 +704,7 @@ export default function AdminArmadaPage() {
                   <select
                     value={jadwalForm.tipe}
                     onChange={e => setJadwalForm({ ...jadwalForm, tipe: e.target.value })}
-                    className="w-full px-3 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-blue-300 focus:ring-2 focus:ring-blue-100 bg-white"
+                    className="w-full px-3 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-blue-100 bg-white"
                   >
                     <option value="ANTAR">Antar</option>
                     <option value="JEMPUT">Jemput</option>
@@ -717,7 +717,7 @@ export default function AdminArmadaPage() {
                     required
                     value={jadwalForm.jamBerangkat}
                     onChange={e => setJadwalForm({ ...jadwalForm, jamBerangkat: e.target.value })}
-                    className="w-full px-3 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-blue-300 focus:ring-2 focus:ring-blue-100"
+                    className="w-full px-3 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-blue-100"
                   />
                 </div>
               </div>
@@ -746,7 +746,7 @@ export default function AdminArmadaPage() {
                 <button
                   type="submit"
                   disabled={jadwalFormLoading}
-                  className="flex-1 px-4 py-2.5 rounded-xl bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition-all disabled:opacity-50 active:scale-95"
+                  className="flex-1 px-4 py-2.5 rounded-xl bg-primary text-white text-sm font-semibold hover:bg-primary-dark transition-all disabled:opacity-50 active:scale-95"
                 >
                   {jadwalFormLoading ? "Menyimpan..." : jadwalModal.type === "add" ? "Tambah" : "Simpan"}
                 </button>
@@ -776,7 +776,7 @@ export default function AdminArmadaPage() {
                 <input
                   type="text" required placeholder="cth: Toyota Innova"
                   value={form.nama} onChange={(e) => setForm({ ...form, nama: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-primary focus:ring-2 focus:ring-blue-100 outline-none"
                 />
               </div>
               <div>
@@ -784,7 +784,7 @@ export default function AdminArmadaPage() {
                 <input
                   type="text" required placeholder="cth: BA 1234 XX"
                   value={form.platNomor} onChange={(e) => setForm({ ...form, platNomor: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none font-mono"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-primary focus:ring-2 focus:ring-blue-100 outline-none font-mono"
                 />
               </div>
               <div className="grid grid-cols-2 gap-3">
@@ -792,7 +792,7 @@ export default function AdminArmadaPage() {
                   <label className="block text-sm font-semibold text-gray-700 mb-1.5">Tipe</label>
                   <select
                     value={form.tipe} onChange={(e) => setForm({ ...form, tipe: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none bg-white"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-primary focus:ring-2 focus:ring-blue-100 outline-none bg-white"
                   >
                     <option value="MPV">MPV</option>
                     <option value="SUV">SUV</option>
@@ -806,7 +806,7 @@ export default function AdminArmadaPage() {
                   <input
                     type="number" min="1" max="20"
                     value={form.kapasitas} onChange={(e) => setForm({ ...form, kapasitas: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-primary focus:ring-2 focus:ring-blue-100 outline-none"
                   />
                 </div>
               </div>
@@ -814,7 +814,7 @@ export default function AdminArmadaPage() {
                 <label className="block text-sm font-semibold text-gray-700 mb-1.5">Status Armada</label>
                 <select
                   value={form.status} onChange={(e) => setForm({ ...form, status: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none bg-white"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-primary focus:ring-2 focus:ring-blue-100 outline-none bg-white"
                 >
                   {STATUS_OPTIONS.map(s => (
                     <option key={s.value} value={s.value}>{s.label}</option>
@@ -826,7 +826,7 @@ export default function AdminArmadaPage() {
                 <button
                   type="button"
                   onClick={() => setForm({ ...form, aktif: !form.aktif })}
-                  className={`relative w-12 h-6 rounded-full transition-colors ${form.aktif ? "bg-blue-600" : "bg-gray-300"}`}
+                  className={`relative w-12 h-6 rounded-full transition-colors ${form.aktif ? "bg-primary" : "bg-gray-300"}`}
                 >
                   <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform ${form.aktif ? "translate-x-6" : ""}`} />
                 </button>
@@ -835,7 +835,7 @@ export default function AdminArmadaPage() {
                 <button type="button" onClick={() => setModalOpen(false)} className="flex-1 py-2.5 rounded-xl border border-gray-200 text-gray-600 font-semibold text-sm hover:bg-gray-50">
                   Batal
                 </button>
-                <button type="submit" disabled={formLoading} className="flex-1 py-2.5 rounded-xl bg-blue-600 text-white font-semibold text-sm hover:bg-blue-700 disabled:opacity-50">
+                <button type="submit" disabled={formLoading} className="flex-1 py-2.5 rounded-xl bg-primary text-white font-semibold text-sm hover:bg-primary-dark disabled:opacity-50">
                   {formLoading ? "Menyimpan..." : editData ? "Simpan" : "Tambah"}
                 </button>
               </div>

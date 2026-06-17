@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 260" width="800" height="260">
+  <defs>
+    <linearGradient id="tealGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0ea5e9;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#14b8a6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Main text: Skyvora (centered) -->
+  <text x="400" y="130" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-weight="900" font-size="96" fill="url(#tealGrad)" letter-spacing="4">Skyvora</text>
+
+  <!-- Accent line (centered) -->
+  <rect x="230" y="148" width="340" height="4" rx="2" fill="#f97316"/>
+
+  <!-- Subtext: TRAVEL (centered) -->
+  <text x="400" y="190" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-weight="400" font-size="36" fill="#0ea5e9" letter-spacing="24">TRAVEL</text>
+
+  <!-- Map pin (right side, after Skyvora) -->
+  <g transform="translate(620, 108)" opacity="0.6">
+    <path d="M12,0 C5.4,0 0,5.4 0,12 C0,20 12,30 12,30 C12,30 24,20 24,12 C24,5.4 18.6,0 12,0 Z" fill="#f97316"/>
+    <circle cx="12" cy="11" r="5" fill="white"/>
+  </g>
+</svg>

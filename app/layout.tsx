@@ -8,6 +8,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Skyvora Travel - Antar Jemput Bandara",
   description: "Pemesanan travel antar jemput rumah ↔ bandara. Aman, nyaman, tepat waktu.",
+  icons: {
+    icon: "/skyvora-icon.svg",
+  },
 };
 
 export default function RootLayout({
