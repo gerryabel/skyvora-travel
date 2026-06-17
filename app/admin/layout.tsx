@@ -12,12 +12,10 @@ import {
   Car,
   Menu,
   X,
-  Bell,
   LogOut,
   User,
   Users,
   FileBarChart,
-  Megaphone,
 } from "lucide-react";
 import { useState, useEffect } from "react";
 
@@ -28,7 +26,6 @@ const navItems = [
   { href: "/admin/armada", icon: Car, label: "Armada" },
   { href: "/admin/users", icon: Users, label: "Users" },
   { href: "/admin/laporan", icon: FileBarChart, label: "Laporan" },
-  { href: "/admin/notifikasi", icon: Megaphone, label: "Notifikasi" },
 ];
 
 interface AuthUser {
@@ -171,11 +168,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
             {/* Right: Actions */}
             <div className="flex items-center gap-2">
-              <button className="p-2 rounded-lg hover:bg-gray-100 text-gray-500 transition-colors relative">
-                <Bell className="w-5 h-5" />
-                <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full" />
-              </button>
-              <div className="h-6 w-px bg-gray-200 mx-1" />
               <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-50">
                 <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center">
                   <User className="w-3.5 h-3.5 text-blue-600" />
