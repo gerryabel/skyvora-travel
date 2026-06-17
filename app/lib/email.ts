@@ -56,7 +56,7 @@ const EMAIL_FOOTER = `
 `;
 
 function btn(text: string, href: string) {
-  return `<a href="${href}" style="display:inline-block;background:#2563eb;color:#fff;padding:12px 28px;border-radius:10px;text-decoration:none;font-weight:700;font-size:14px;">${text}</a>`;
+  return `<a href="${href}" style="display:inline-block;background:#0ea5e9;color:#fff;padding:12px 28px;border-radius:10px;text-decoration:none;font-weight:700;font-size:14px;">${text}</a>`;
 }
 
 /** Booking baru dibuat — konfirmasi ke user */
@@ -71,7 +71,7 @@ export function tplBookingNew(params: {
   bookingUrl: string;
 }) {
   const { userName, rute, tglBerangkat, jamBerangkat, jumlahKursi, totalHarga, status, bookingUrl } = params;
-  const statusColor = status === "PAID" ? "#16a34a" : status === "PENDING_PAYMENT" ? "#d97706" : "#2563eb";
+  const statusColor = status === "PAID" ? "#16a34a" : status === "PENDING_PAYMENT" ? "#d97706" : "#0ea5e9";
   const statusLabel = status === "PAID" ? "Sudah Bayar" : status === "PENDING_PAYMENT" ? "Menunggu Pembayaran" : status;
 
   return {

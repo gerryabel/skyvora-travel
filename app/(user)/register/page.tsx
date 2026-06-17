@@ -181,8 +181,7 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-2.5 rounded-lg font-semibold text-white text-sm flex items-center justify-center gap-2 transition-all hover:opacity-90 disabled:opacity-50"
-              style={{ background: "#2563eb" }}
+              className="w-full py-2.5 rounded-lg font-semibold text-white text-sm flex items-center justify-center gap-2 transition-all hover:opacity-90 disabled:opacity-50 bg-primary hover:bg-primary-dark"
             >
               <UserPlus className="w-4 h-4" />
               {loading ? "Mendaftar..." : "Daftar"}
