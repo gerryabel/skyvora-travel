@@ -351,7 +351,7 @@ export default function AdminJadwalPage() {
           <div className="px-5 py-3.5 border-b border-gray-100 bg-gray-50/50 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <CalendarDays className="w-4 h-4 text-primary" />
-              {h3 className="font-bold text-gray-900">{HARI_LABELS[filterHari]}</h3>
+              <h3 className="font-bold text-gray-900">{HARI_LABELS[filterHari]}</h3>
               <span className="text-xs text-gray-400">({visibleItems.length} jadwal)</span>
             </div>
           </div>
