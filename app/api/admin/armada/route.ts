@@ -1,15 +1,12 @@
 // app/api/admin/armada/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "../../../generated/prisma/client";
-import { PrismaPg } from "@prisma/adapter-pg";
-import { Pool } from "pg";
+import { requireAdmin } from "@/app/lib/admin";
+import { prisma } from "@/app/lib/db";
 
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-const adapter = new PrismaPg(pool);
-const prisma = new PrismaClient({ adapter });
-
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
+    const guard = await requireAdmin(req);
+    if (!guard.success) return guard.response;
     const armadas = await prisma.armada.findMany({
       include: {
         _count: { select: { jadwals: true } },
@@ -21,7 +18,9 @@ export async function GET() {
       ...a,
       returnAt: a.returnAt?.toISOString() || null,
     }));
-    return NextResponse.json({ data: result });
+    const res = NextResponse.json({ data: result });
+    res.headers.set("Cache-Control", "s-maxage=10, stale-while-revalidate=30");
+    return res;
   } catch (error) {
     console.error("Admin armada GET error:", error);
     return NextResponse.json({ error: "Gagal mengambil data armada" }, { status: 500 });
@@ -30,7 +29,13 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
+    const guard = await requireAdmin(req);
+    if (!guard.success) return guard.response;
+    const raw = await req.text();
+    if (raw.length > 2048) {
+      return NextResponse.json({ error: "Payload terlalu besar" }, { status: 413 });
+    }
+    const body = JSON.parse(raw);
     const { nama, platNomor, kapasitas, tipe, status, aktif } = body;
 
     if (!nama || !platNomor || !kapasitas) {

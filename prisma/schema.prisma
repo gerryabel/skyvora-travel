@@ -31,6 +31,7 @@ model Armada {
   updatedAt DateTime     @updatedAt
   status    ArmadaStatus @default(STANDBY)
   returnAt  DateTime?
+  group     ArmadaGroup  @default(A)
   jadwals   Jadwal[]
 }
 
@@ -137,4 +138,11 @@ enum ArmadaStatus {
   DALAM_PERJALANAN
   MAINTENANCE
   TIDAK_AKTIF
+}
+
+enum ArmadaGroup {
+  A
+  B
+  C
+  D
 }

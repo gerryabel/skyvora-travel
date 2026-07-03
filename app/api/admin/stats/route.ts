@@ -1,15 +1,12 @@
 // app/api/admin/stats/route.ts
-import { NextResponse } from "next/server";
-import { PrismaClient } from "../../../generated/prisma/client";
-import { PrismaPg } from "@prisma/adapter-pg";
-import { Pool } from "pg";
+import { NextResponse, NextRequest } from "next/server";
+import { requireAdmin } from "@/app/lib/admin";
+import { prisma } from "@/app/lib/db";
 
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-const adapter = new PrismaPg(pool);
-const prisma = new PrismaClient({ adapter });
-
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
+    const guard = await requireAdmin(req);
+    if (!guard.success) return guard.response;
     const [totalBooking, totalJadwal, totalArmada, bookingByStatus] = await Promise.all([
       prisma.booking.count(),
       prisma.jadwal.count({ where: { aktif: true } }),

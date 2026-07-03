@@ -1,12 +1,6 @@
 // app/api/jadwal/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "../../generated/prisma/client";
-import { PrismaPg } from "@prisma/adapter-pg";
-import { Pool } from "pg";
-
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-const adapter = new PrismaPg(pool);
-const prisma = new PrismaClient({ adapter });
+import { prisma } from "@/app/lib/db";
 
 export async function GET(req: NextRequest) {
   try {
@@ -35,7 +29,9 @@ export async function GET(req: NextRequest) {
       orderBy: [{ jamBerangkat: "asc" }],
     });
 
-    return NextResponse.json({ data: jadwals });
+    const res = NextResponse.json({ data: jadwals });
+    res.headers.set("Cache-Control", "s-maxage=30, stale-while-revalidate=60");
+    return res;
   } catch (error) {
     console.error("Jadwal API error:", error);
     return NextResponse.json({ error: "Gagal mengambil data jadwal" }, { status: 500 });

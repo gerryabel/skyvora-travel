@@ -1,15 +1,12 @@
 // app/api/admin/bookings/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "../../../generated/prisma/client";
-import { PrismaPg } from "@prisma/adapter-pg";
-import { Pool } from "pg";
+import { requireAdmin } from "@/app/lib/admin";
+import { prisma } from "@/app/lib/db";
 
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-const adapter = new PrismaPg(pool);
-const prisma = new PrismaClient({ adapter });
-
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
+    const guard = await requireAdmin(req);
+    if (!guard.success) return guard.response;
     const bookings = await prisma.booking.findMany({
       include: {
         jadwal: { include: { armada: true } },

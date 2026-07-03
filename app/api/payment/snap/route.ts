@@ -1,31 +1,21 @@
 // app/api/payment/snap/route.ts
 // Generate Midtrans Snap token for non-cash payment
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "../../../generated/prisma/client";
-import { PrismaPg } from "@prisma/adapter-pg";
-import { Pool } from "pg";
+import { prisma } from "@/app/lib/db";
 // @ts-ignore: midtrans-client has no TypeScript types
-import snap, { generateOrderId, getMidtransPaymentType } from "../../../../lib/midtrans";
-import { verifyToken } from "../../../../app/lib/auth";
+import snap, { generateOrderId, getMidtransPaymentType } from "@/lib/midtrans";
+import { authenticate } from "@/app/lib/auth";
+import { env } from "@/app/lib/env";
 
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-const adapter = new PrismaPg(pool);
-const prisma = new PrismaClient({ adapter });
+const baseUrl = env.NEXTAUTH_URL || "http://localhost:3000";
 
 export async function POST(req: NextRequest) {
   try {
-    const token = req.cookies.get("skyvora_token")?.value;
-    if (!token) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
-    const payload = await verifyToken(token);
-    if (!payload) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+    const auth = await authenticate(req);
+    if (!auth.success) return auth.response;
 
     const body = await req.json();
-    const { bookingId, metodePembayaran, customerName, customerEmail, customerPhone } = body;
+    const { bookingId, metodePembayaran } = body;
 
     if (!bookingId || !metodePembayaran) {
       return NextResponse.json(
@@ -34,7 +24,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Cash tidak butuh Midtrans
+    // Cash doesn't need Midtrans
     if (metodePembayaran === "cash") {
       return NextResponse.json({
         data: {
@@ -47,7 +37,7 @@ export async function POST(req: NextRequest) {
 
     // Get booking from DB
     const booking = await prisma.booking.findFirst({
-      where: { id: bookingId, userId: payload.id },
+      where: { id: bookingId, userId: auth.payload.id },
       include: { jadwal: true },
     });
 
@@ -57,6 +47,7 @@ export async function POST(req: NextRequest) {
 
     const orderId = generateOrderId(booking.id);
     const paymentTypes = getMidtransPaymentType(metodePembayaran);
+    const callbackBase = `${baseUrl}/pembayaran/konfirmasi`;
 
     const parameter = {
       transaction_details: {
@@ -64,22 +55,26 @@ export async function POST(req: NextRequest) {
         gross_amount: booking.totalHarga,
       },
       customer_details: {
-        first_name: customerName || payload.name,
-        email: customerEmail || payload.email,
-        phone: customerPhone || "",
+        first_name: auth.payload.name,
+        email: auth.payload.email,
+        phone: "",
       },
       item_details: [
         {
           id: booking.jadwalId,
-          price: booking.jadwal ? booking.jadwal.harga : booking.totalHarga,
-          quantity: booking.jumlahKursi,
-          name: booking.jadwal ? booking.jadwal.rute : "Travel Booking",
+          price: booking.totalHarga,
+          quantity: 1,
+          name: booking.jadwal && booking.jadwal.rute
+            ? booking.jadwal.rute.length > 50
+              ? booking.jadwal.rute.substring(0, 47) + "..."
+              : booking.jadwal.rute
+            : "Travel Booking",
         },
       ],
       callbacks: {
-        finish: `${process.env.NEXTAUTH_URL}/pembayaran/konfirmasi?bookingId=${bookingId}&orderId=${orderId}`,
-        error: `${process.env.NEXTAUTH_URL}/pembayaran/konfirmasi?bookingId=${bookingId}&orderId=${orderId}&status=error`,
-        pending: `${process.env.NEXTAUTH_URL}/pembayaran/konfirmasi?bookingId=${bookingId}&orderId=${orderId}&status=pending`,
+        finish: `${callbackBase}?bookingId=${bookingId}&orderId=${orderId}`,
+        error: `${callbackBase}?bookingId=${bookingId}&orderId=${orderId}&status=error`,
+        pending: `${callbackBase}?bookingId=${bookingId}&orderId=${orderId}&status=pending`,
       },
     };
 
@@ -100,7 +95,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Update booking dengan snap token dan metode pembayaran
+    // Update booking with snap token and payment method
     await prisma.booking.update({
       where: { id: bookingId },
       data: {

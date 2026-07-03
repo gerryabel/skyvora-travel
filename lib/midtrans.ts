@@ -1,7 +1,8 @@
 // lib/midtrans.ts
 // Midtrans Snap client configuration
 
-// @ts-ignore: midtrans-client has no TypeScript types
+// midtrans-client does not provide TypeScript types, so require it here with `as any`
+// eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-explicit-any
 const midtransClient = require("midtrans-client") as any;
 
 const snap = new midtransClient.Snap({

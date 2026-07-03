@@ -1,14 +1,8 @@
 // app/api/payment/webhook/route.ts
 // Midtrans webhook handler untuk konfirmasi pembayaran otomatis
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "../../../generated/prisma/client";
-import { PrismaPg } from "@prisma/adapter-pg";
-import { Pool } from "pg";
+import { prisma } from "@/app/lib/db";
 import crypto from "crypto";
-
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-const adapter = new PrismaPg(pool);
-const prisma = new PrismaClient({ adapter});
 
 export async function POST(req: NextRequest) {
   try {

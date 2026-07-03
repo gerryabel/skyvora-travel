@@ -1,18 +1,19 @@
 // app/api/admin/jadwal/[id]/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "../../../../generated/prisma/client";
-import { PrismaPg } from "@prisma/adapter-pg";
-import { Pool } from "pg";
-
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-const adapter = new PrismaPg(pool);
-const prisma = new PrismaClient({ adapter });
+import { requireAdmin } from "@/app/lib/admin";
+import { prisma } from "@/app/lib/db";
 
 // PUT: update jadwal
 export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const guard = await requireAdmin(req);
+    if (!guard.success) return guard.response;
     const { id } = await params;
-    const body = await req.json();
+    const raw = await req.text();
+    if (raw.length > 2048) {
+      return NextResponse.json({ error: "Payload terlalu besar" }, { status: 413 });
+    }
+    const body = JSON.parse(raw);
     const { rute, tipe, hari, jamBerangkat, harga, asal, tujuan, bandara, kapasitas, minKuota, estimasiWaktu, aktif } = body;
 
     const existing = await prisma.jadwal.findUnique({ where: { id } });
@@ -48,6 +49,8 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
 // DELETE: hapus jadwal
 export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const guard = await requireAdmin(req);
+    if (!guard.success) return guard.response;
     const { id } = await params;
 
     const existing = await prisma.jadwal.findUnique({ where: { id } });
@@ -55,7 +58,6 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
       return NextResponse.json({ error: "Jadwal tidak ditemukan" }, { status: 404 });
     }
 
-    // Check if jadwal has bookings
     const bookingCount = await prisma.booking.count({ where: { jadwalId: id } });
     if (bookingCount > 0) {
       return NextResponse.json(

@@ -1,10 +1,12 @@
 // app/api/admin/laporan/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import { createPrismaClient } from "../../../lib/db";
+import { prisma } from "@/app/lib/db";
+import { requireAdmin } from "@/app/lib/admin";
 
 export async function GET(req: NextRequest) {
   try {
-    const prisma = createPrismaClient();
+    const guard = await requireAdmin(req);
+    if (!guard.success) return guard.response;
     const { searchParams } = new URL(req.url);
     const periode = searchParams.get("periode") || "bulanan"; // harian, bulanan, tahunan
     const tanggal = searchParams.get("tanggal") || new Date().toISOString().slice(0, 10);

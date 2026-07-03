@@ -1,23 +1,22 @@
 // app/api/admin/users/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "../../../generated/prisma/client";
-import { PrismaPg } from "@prisma/adapter-pg";
-import { Pool } from "pg";
 import bcrypt from "bcryptjs";
+import { requireAdmin } from "@/app/lib/admin";
+import { prisma } from "@/app/lib/db";
 
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-const adapter = new PrismaPg(pool);
-const prisma = new PrismaClient({ adapter});
-
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
+    const guard = await requireAdmin(req);
+    if (!guard.success) return guard.response;
     const users = await prisma.user.findMany({
       orderBy: { createdAt: "desc" },
       include: {
         _count: { select: { bookings: true } },
       },
     });
-    return NextResponse.json({ data: users });
+    const res = NextResponse.json({ data: users });
+    res.headers.set("Cache-Control", "s-maxage=10, stale-while-revalidate=30");
+    return res;
   } catch (err: any) {
     return NextResponse.json({ error: err.message }, { status: 500 });
   }
@@ -25,7 +24,13 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
+    const guard = await requireAdmin(req);
+    if (!guard.success) return guard.response;
+    const raw = await req.text();
+    if (raw.length > 2048) {
+      return NextResponse.json({ error: "Payload terlalu besar" }, { status: 413 });
+    }
+    const body = JSON.parse(raw);
     const { name, email, password, phone, role } = body;
 
     if (!name || !email || !password) {

@@ -1,29 +1,89 @@
 // app/api/bookings/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "../../generated/prisma/client";
-import { PrismaPg } from "@prisma/adapter-pg";
-import { Pool } from "pg";
-import { verifyToken } from "../../lib/auth";
+import { authenticate } from "@/app/lib/auth";
+import { requireRateLimit } from "@/app/lib/rateLimit";
+import { prisma } from "@/app/lib/db";
 
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-const adapter = new PrismaPg(pool);
-const prisma = new PrismaClient({ adapter });
-
-// GET — ambil semua booking user
+// GET — ambil semua booking user, atau satu booking by id jika diberikan query ?id=
 export async function GET(req: NextRequest) {
   try {
-    const token = req.cookies.get("skyvora_token")?.value;
-    if (!token) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+    const auth = await authenticate(req);
+    if (!auth.success) return auth.response;
 
-    const payload = await verifyToken(token);
-    if (!payload) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    const id = req.nextUrl.searchParams.get("id");
+
+    if (id) {
+      const booking = await prisma.booking.findFirst({
+        where: { id, userId: auth.payload.id },
+        include: {
+          jadwal: {
+            include: {
+              armada: {
+                select: {
+                  nama: true,
+                  platNomor: true,
+                },
+              },
+            },
+          },
+          payment: true,
+          user: {
+            select: {
+              name: true,
+            },
+          },
+        },
+      });
+
+      if (!booking) {
+        return NextResponse.json({ data: null }, { status: 404 });
+      }
+
+      return NextResponse.json({
+        data: {
+          id: booking.id,
+          status: booking.status,
+          tipeTrip: booking.tipeTrip,
+          tglBerangkat: booking.tglBerangkat,
+          jumlahKursi: booking.jumlahKursi,
+          totalHarga: booking.totalHarga,
+          metodePembayaran: booking.metodePembayaran,
+          snapToken: booking.snapToken,
+          alamatJemput: booking.alamatJemput,
+          catatan: booking.catatan,
+          nama: booking.user?.name || "",
+          createdAt: booking.createdAt.toISOString(),
+          jadwal: booking.jadwal
+            ? {
+                rute: booking.jadwal.rute,
+                bandara: booking.jadwal.bandara,
+                tipe: booking.jadwal.tipe,
+                hari: booking.jadwal.hari,
+                jamBerangkat: booking.jadwal.jamBerangkat,
+                harga: booking.jadwal.harga,
+                armada: booking.jadwal.armada
+                  ? {
+                      nama: booking.jadwal.armada.nama,
+                      platNomor: booking.jadwal.armada.platNomor,
+                    }
+                  : null,
+              }
+            : null,
+          payment: booking.payment
+            ? {
+                orderId: booking.payment.orderId,
+                status: booking.payment.status,
+                method: booking.payment.method,
+                amount: booking.payment.amount,
+                paidAt: booking.payment.paidAt?.toISOString() || null,
+              }
+            : null,
+        },
+      });
     }
 
     const bookings = await prisma.booking.findMany({
-      where: { userId: payload.id },
+      where: { userId: auth.payload.id },
       include: { jadwal: { include: { armada: true } }, payment: true, user: { select: { name: true } } },
       orderBy: { createdAt: "desc" },
     });
@@ -75,18 +135,18 @@ export async function GET(req: NextRequest) {
 // POST — buat booking baru
 export async function POST(req: NextRequest) {
   try {
-    const token = req.cookies.get("skyvora_token")?.value;
-    if (!token) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+    const auth = await authenticate(req);
+    if (!auth.success) return auth.response;
 
-    const payload = await verifyToken(token);
-    if (!payload) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+    const blocked = await requireRateLimit(req, "booking:create", 10, 60_000);
+    if (blocked) return blocked;
 
-    const body = await req.json();
-    console.log("POST /api/bookings body:", JSON.stringify(body));
+    const raw = await req.text();
+    if (raw.length > 2048) {
+      return NextResponse.json({ error: "Payload terlalu besar" }, { status: 413 });
+    }
+    const body = JSON.parse(raw);
+    console.log("POST /api/bookings payload keys:", Object.keys(body));
 
     const {
       jadwalId,
@@ -137,7 +197,7 @@ export async function POST(req: NextRequest) {
     // Create booking
     const booking = await prisma.booking.create({
       data: {
-        userId: payload.id,
+        userId: auth.payload.id,
         jadwalId,
         tipeTrip,
         tglBerangkat,

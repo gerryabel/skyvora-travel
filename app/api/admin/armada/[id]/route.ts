@@ -1,12 +1,7 @@
 // app/api/admin/armada/[id]/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "../../../../generated/prisma/client";
-import { PrismaPg } from "@prisma/adapter-pg";
-import { Pool } from "pg";
-
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-const adapter = new PrismaPg(pool);
-const prisma = new PrismaClient({ adapter });
+import { requireAdmin } from "@/app/lib/admin";
+import { prisma } from "@/app/lib/db";
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
@@ -39,8 +34,14 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
 
 export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const guard = await requireAdmin(req);
+    if (!guard.success) return guard.response;
     const { id } = await params;
-    const body = await req.json();
+    const raw = await req.text();
+    if (raw.length > 2048) {
+      return NextResponse.json({ error: "Payload terlalu besar" }, { status: 413 });
+    }
+    const body = JSON.parse(raw);
     const { nama, platNomor, kapasitas, tipe, status, aktif } = body;
 
     const existing = await prisma.armada.findUnique({ where: { id } });
@@ -70,7 +71,6 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
   }
 }
 
-// PATCH — quick status change only
 export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
@@ -100,6 +100,8 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
 
 export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const guard = await requireAdmin(req);
+    if (!guard.success) return guard.response;
     const { id } = await params;
     const existing = await prisma.armada.findUnique({ where: { id } });
     if (!existing) {

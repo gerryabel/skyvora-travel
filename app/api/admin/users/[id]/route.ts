@@ -1,18 +1,19 @@
 // app/api/admin/users/[id]/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "../../../../generated/prisma/client";
-import { PrismaPg } from "@prisma/adapter-pg";
-import { Pool } from "pg";
 import bcrypt from "bcryptjs";
-
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-const adapter = new PrismaPg(pool);
-const prisma = new PrismaClient({ adapter });
+import { requireAdmin } from "@/app/lib/admin";
+import { prisma } from "@/app/lib/db";
 
 export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const guard = await requireAdmin(req);
+    if (!guard.success) return guard.response;
     const { id } = await params;
-    const body = await req.json();
+    const raw = await req.text();
+    if (raw.length > 2048) {
+      return NextResponse.json({ error: "Payload terlalu besar" }, { status: 413 });
+    }
+    const body = JSON.parse(raw);
     const { name, email, password, phone, role } = body;
 
     const existing = await prisma.user.findUnique({ where: { id } });
@@ -49,6 +50,8 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
 
 export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const guard = await requireAdmin(req);
+    if (!guard.success) return guard.response;
     const { id } = await params;
 
     const existing = await prisma.user.findUnique({ where: { id } });

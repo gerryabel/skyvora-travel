@@ -1,13 +1,8 @@
 // app/api/admin/bookings/[id]/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "../../../../generated/prisma/client";
-import { PrismaPg } from "@prisma/adapter-pg";
-import { Pool } from "pg";
-import { sendEmail } from "@/lib/email";
-
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-const adapter = new PrismaPg(pool);
-const prisma = new PrismaClient({ adapter });
+import { sendEmail } from "@/app/lib/email";
+import { requireAdmin } from "@/app/lib/admin";
+import { prisma } from "@/app/lib/db";
 
 async function notifyBookingStatus(
   booking: {
@@ -33,7 +28,7 @@ async function notifyBookingStatus(
   const bookingUrl = `${baseUrl}/booking/${booking.id}`;
 
   if (action === "confirm") {
-    const { subject, html, text } = (await import("@/lib/email")).tplBookingConfirmed({
+    const { subject, html, text } = (await import("@/app/lib/email")).tplBookingConfirmed({
       userName: user.name,
       rute: jadwal.rute,
       tglBerangkat: tgl,
@@ -46,7 +41,7 @@ async function notifyBookingStatus(
     });
     await sendEmail(user.email, subject, html, text);
   } else if (action === "complete") {
-    const { subject, html, text } = (await import("@/lib/email")).tplBookingSelesai({
+    const { subject, html, text } = (await import("@/app/lib/email")).tplBookingSelesai({
       userName: user.name,
       rute: jadwal.rute,
       tglBerangkat: tgl,
@@ -54,7 +49,7 @@ async function notifyBookingStatus(
     });
     await sendEmail(user.email, subject, html, text);
   } else if (action === "cancel") {
-    const { subject, html, text } = (await import("@/lib/email")).tplBookingDibatalkan({
+    const { subject, html, text } = (await import("@/app/lib/email")).tplBookingDibatalkan({
       userName: user.name,
       rute: jadwal.rute,
       tglBerangkat: tgl,
@@ -66,8 +61,14 @@ async function notifyBookingStatus(
 
 export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const guard = await requireAdmin(req);
+    if (!guard.success) return guard.response;
     const { id } = await params;
-    const { action } = await req.json();
+    const raw = await req.text();
+    if (raw.length > 2048) {
+      return NextResponse.json({ error: "Payload terlalu besar" }, { status: 413 });
+    }
+    const { action } = JSON.parse(raw);
 
     const booking = await prisma.booking.findUnique({
       where: { id },
@@ -87,7 +88,6 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
         break;
       case "cancel":
         newStatus = "DIBATALKAN";
-        // Kurangi kuota jadwal
         if (booking.status !== "PENDING" && booking.status !== "PENDING_PAYMENT" && booking.status !== "DIBATALKAN") {
           await prisma.jadwal.update({
             where: { id: booking.jadwalId },
@@ -113,7 +113,6 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
       include: { jadwal: { include: { armada: true } }, user: true },
     });
 
-    // Kirim notifikasi email async (jangan block response)
     if (updated.user?.email && updated.jadwal) {
       notifyBookingStatus(
         {
