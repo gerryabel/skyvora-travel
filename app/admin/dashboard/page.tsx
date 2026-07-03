@@ -1,5 +1,4 @@
 // app/admin/dashboard/page.tsx
-import { createPrismaClient } from "@/lib/db";
 import Link from "next/link";
 import {
   ClipboardList,
@@ -24,7 +23,7 @@ function formatRupiah(n: number) {
 }
 
 export default async function AdminDashboard() {
-  const prisma = createPrismaClient();
+  const prisma = (await import("@/app/lib/db")).prisma;
 
   const [
     totalBooking,

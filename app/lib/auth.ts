@@ -2,6 +2,7 @@
 // JWT authentication utility using jose (compatible with Next.js 16 Edge Runtime)
 
 import { SignJWT, jwtVerify } from "jose";
+import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
 const JWT_SECRET = new TextEncoder().encode(
@@ -42,6 +43,30 @@ export async function setAuthCookie(token: string): Promise<void> {
     maxAge: 60 * 60 * 24 * 7, // 7 days
     path: "/",
   });
+}
+
+export type AuthResult =
+  | { success: true; payload: JWTPayload }
+  | { success: false; response: NextResponse };
+
+export async function authenticate(req: NextRequest): Promise<AuthResult> {
+  const token = req.cookies.get(COOKIE_NAME)?.value;
+  if (!token) {
+    return {
+      success: false,
+      response: NextResponse.json({ error: "Unauthorized" }, { status: 401 }),
+    };
+  }
+
+  const payload = await verifyToken(token);
+  if (!payload) {
+    return {
+      success: false,
+      response: NextResponse.json({ error: "Unauthorized" }, { status: 401 }),
+    };
+  }
+
+  return { success: true, payload };
 }
 
 export async function removeAuthCookie(): Promise<void> {
