@@ -16,7 +16,7 @@ export async function GET(req: NextRequest) {
       ],
     });
     const res = NextResponse.json({ data: jadwals });
-    res.headers.set("Cache-Control", "s-maxage=10, stale-while-revalidate=30");
+    res.headers.set("Cache-Control", "no-store");
     return res;
   } catch (error) {
     console.error("Admin jadwal GET error:", error);

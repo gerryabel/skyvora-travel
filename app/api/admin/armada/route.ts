@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
       returnAt: a.returnAt?.toISOString() || null,
     }));
     const res = NextResponse.json({ data: result });
-    res.headers.set("Cache-Control", "s-maxage=10, stale-while-revalidate=30");
+    res.headers.set("Cache-Control", "no-store");
     return res;
   } catch (error) {
     console.error("Admin armada GET error:", error);

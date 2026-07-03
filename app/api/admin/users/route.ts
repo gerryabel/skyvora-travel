@@ -15,7 +15,7 @@ export async function GET(req: NextRequest) {
       },
     });
     const res = NextResponse.json({ data: users });
-    res.headers.set("Cache-Control", "s-maxage=10, stale-while-revalidate=30");
+    res.headers.set("Cache-Control", "no-store");
     return res;
   } catch (err: any) {
     return NextResponse.json({ error: err.message }, { status: 500 });

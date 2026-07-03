@@ -1,6 +1,7 @@
 // app/api/jadwal/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/app/lib/db";
+import { getArmadaGroup, listGroups } from "@/app/lib/armadaGroups";
 
 export async function GET(req: NextRequest) {
   try {
@@ -22,6 +23,27 @@ export async function GET(req: NextRequest) {
     if (hari) where.hari = hari;
     if (asal) where.asal = asal;
     if (tujuan) where.tujuan = tujuan;
+
+    let armadaFilter: string[] | undefined;
+    const groupParam = (searchParams.get("group") || "").trim().toUpperCase();
+    if (groupParam) {
+      const allowed = listGroups();
+      const groups = groupParam.split(",").map(g => g.trim()).filter(g => allowed.includes(g as any));
+      if (groups.length) {
+        const allArmada = await prisma.armada.findMany({
+          select: { id: true },
+          where: { aktif: true },
+        });
+        armadaFilter = allArmada
+          .filter(a => groups.includes(getArmadaGroup(a.id)))
+          .map(a => a.id);
+        if (armadaFilter.length) {
+          where.armadaId = { in: armadaFilter };
+        } else {
+          where.armadaId = "00000000-00000000-00000000-00000000";
+        }
+      }
+    }
 
     const jadwals = await prisma.jadwal.findMany({
       where,

@@ -6,6 +6,7 @@ import {
   Plus, Edit, Trash2, RefreshCw, Car, Users,
   Hash, ChevronDown, X, Eye, Calendar,
   Clock, DollarSign, MapPin, AlertTriangle,
+  LayoutGrid, BarChart3,
 } from "lucide-react";
 
 const HARI_LIST = ["SENIN", "SELASA", "RABU", "KAMIS", "JUMAT", "SABTU", "MINGGU"] as const;
@@ -79,6 +80,27 @@ export default function AdminArmadaPage() {
 
   useEffect(() => { fetchData(); }, [fetchData]);
 
+  const [groups, setGroups] = useState<null | {
+    group: string;
+    armadaCount: number;
+    totalJadwal: number;
+    armada: { nama: string; jadwalCount: number }[];
+  }[]>(null);
+  const [groupsLoading, setGroupsLoading] = useState(false);
+
+  async function fetchGroups() {
+    setGroupsLoading(true);
+    try {
+      const res = await fetch("/api/admin/armada/groups");
+      const json = await res.json();
+      if (res.ok) setGroups(json.data || []);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setGroupsLoading(false);
+    }
+  }
+
   // Stats
   const totalArmada = armadas.length;
   const standbyCount = armadas.filter(a => a.status === "STANDBY").length;
@@ -116,7 +138,14 @@ export default function AdminArmadaPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Terjadi kesalahan");
       setModalOpen(false);
-      await fetchData();
+
+      if (editData) {
+        setArmadas(prev =>
+          prev.map(a => (a.id === editData.id ? { ...a, ...data.data } : a))
+        );
+      } else {
+        setArmadas(prev => [data.data, ...prev]);
+      }
     } catch (err: any) {
       setFormError(err.message);
     } finally {
@@ -130,7 +159,7 @@ export default function AdminArmadaPage() {
       const res = await fetch(`/api/admin/armada/${id}`, { method: "DELETE" });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Gagal menghapus");
-      await fetchData();
+      setArmadas(prev => prev.filter(a => a.id !== id));
     } catch (err: any) {
       alert(err.message);
     } finally {
@@ -148,7 +177,9 @@ export default function AdminArmadaPage() {
         body: JSON.stringify({ aktif: !a.aktif }),
       });
       if (!res.ok) throw new Error("Gagal mengubah status");
-      await fetchData();
+      setArmadas(prev =>
+        prev.map(item => (item.id === a.id ? { ...item, aktif: !a.aktif } : item))
+      );
     } catch (err: any) {
       alert(err.message);
     } finally {
@@ -165,7 +196,9 @@ export default function AdminArmadaPage() {
         body: JSON.stringify({ status }),
       });
       if (!res.ok) throw new Error("Gagal mengubah status");
-      await fetchData();
+      setArmadas(prev =>
+        prev.map(item => (item.id === id ? { ...item, status } : item))
+      );
     } catch (err: any) {
       alert(err.message);
     } finally {
@@ -218,8 +251,7 @@ export default function AdminArmadaPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Gagal menambah jadwal");
       setJadwalModal(null);
-      await handleOpenDetail({ id: detailOpen } as Armada);
-      await fetchData();
+      setArmadaJadwals(prev => [data.data, ...prev]);
     } catch (err: any) {
       setJadwalFormError(err.message);
     } finally {
@@ -245,8 +277,9 @@ export default function AdminArmadaPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Gagal update jadwal");
       setJadwalModal(null);
-      await handleOpenDetail({ id: detailOpen } as Armada);
-      await fetchData();
+      setArmadaJadwals(prev =>
+        prev.map(j => (j.id === jadwalModal.jadwal.id ? { ...j, ...data.data } : j))
+      );
     } catch (err: any) {
       setJadwalFormError(err.message);
     } finally {
@@ -260,8 +293,7 @@ export default function AdminArmadaPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Gagal hapus jadwal");
       setJadwalDeleteConfirm(null);
-      await handleOpenDetail({ id: detailOpen } as Armada);
-      await fetchData();
+      setArmadaJadwals(prev => prev.filter(j => j.id !== jadwalId));
     } catch (err: any) {
       alert(err.message);
     }
@@ -359,6 +391,59 @@ export default function AdminArmadaPage() {
             <p className="text-xs text-gray-500">Maintenance</p>
           </div>
         </div>
+      </div>
+
+      {/* Armada Groups Panel */}
+      <div className="bg-white rounded-2xl border border-gray-100 p-5 mb-6">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-primary-light rounded-lg flex items-center justify-center text-primary">
+              <LayoutGrid className="w-4 h-4" />
+            </div>
+            <div>
+              <h2 className="text-sm font-bold text-gray-900">Distribusi Kelompok Armada</h2>
+              <p className="text-xs text-gray-500">Pembagian A/B/C/D berdasarkan data aktif</p>
+            </div>
+          </div>
+          <button
+            onClick={fetchGroups}
+            className="text-xs font-semibold text-primary hover:text-primary-dark inline-flex items-center gap-1"
+          >
+            <RefreshCw className="w-3.5 h-3.5" />
+            {groupsLoading ? "Memuat..." : "Refresh"}
+          </button>
+        </div>
+
+        {!groups ? (
+          <div className="text-xs text-gray-500">Klik Refresh untuk memuat distribusi kelompok.</div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            {groups.map((g) => (
+              <div key={g.group} className="rounded-xl border border-gray-100 p-3">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary-light text-primary">
+                      Kelompok {g.group}
+                    </span>
+                    <span className="text-[10px] text-gray-500">{g.armadaCount} armada</span>
+                  </div>
+                  <div className="flex items-center gap-1 text-xs text-gray-700 font-semibold">
+                    <BarChart3 className="w-3.5 h-3.5 text-gray-400" />
+                    {g.totalJadwal}
+                  </div>
+                </div>
+                <div className="space-y-1">
+                  {g.armada.map((a) => (
+                    <div key={a.nama} className="flex items-center justify-between text-xs">
+                      <span className="text-gray-600 truncate">{a.nama}</span>
+                      <span className="text-gray-400 font-mono">{a.jadwalCount}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Grid Cards */}

@@ -104,7 +104,14 @@ export default function AdminUsersPage() {
       if (!res.ok) throw new Error(data.error || "Gagal menyimpan");
 
       setModal(null);
-      await fetchData();
+
+      if (modal.type === "create") {
+        setUsers(prev => [data.data, ...prev]);
+      } else if (modal.user) {
+        setUsers(prev =>
+          prev.map(u => (u.id === modal.user!.id ? { ...u, ...data.data } : u))
+        );
+      }
     } catch (err: any) {
       alert(err.message);
     } finally {
@@ -118,7 +125,7 @@ export default function AdminUsersPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Gagal hapus");
       setDeleteConfirm(null);
-      await fetchData();
+      setUsers(prev => prev.filter(u => u.id !== id));
     } catch (err: any) {
       alert(err.message);
     }
